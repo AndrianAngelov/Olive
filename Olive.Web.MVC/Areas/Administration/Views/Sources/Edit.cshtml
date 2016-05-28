@@ -1,0 +1,35 @@
+﻿@model Olive.Data.Source
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<section id="updateSourceFormContainer">
+    @using (Ajax.BeginForm("Edit", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.InsertAfter,
+        UpdateTargetId = "sourcesTableBody",
+        OnFailure = "sourcePostFailure",
+        OnSuccess = "successUpdateAjax"
+    }, new { id = "updateSourceForm", @class = "form-horizontal administrationEditDialogForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group ">
+            <label for="sourceName" class="col-sm-2 control-label">Име:</label>
+            <div class="col-sm-8">
+                @Html.Hidden("id", Model.SourceID)
+                @Html.TextBoxFor(model => model.Name, new { id = "sourceName", @class = "form-control", placeholder = "Име на източника" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+        <div class="updateDeteleBtnContainer">
+            <input class="editBtn" type="submit" value="Промени" />
+        </div>
+    }
+    
+</section>
+

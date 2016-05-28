@@ -1,0 +1,84 @@
+﻿@model Olive.Web.MVC.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Olive-Начало";
+}
+
+<section class="homeSliderContainer">
+    
+    <h3>Нови рецепти</h3>
+    <ul class="bxslider">
+      @foreach (var recipe in Model.RecipesByCreationDate)
+        {
+            <li>
+                <a href="@Url.Action("Details","Recipes", new { recipeID = recipe.RecipeID, title = recipe.Title.Replace(' ', '-') })">
+                    <img class="recipeItemImage" src="@(recipe.ImageURL)" alt="@Path.GetFileName(recipe.ImageURL)"/> 
+                    <div class="publishDateContainer">
+                        <img src="../../Content/Images/dateTime_icon.png" alt="PublishDate"/>
+                        <p class="publishDay publishDate">@(recipe.Date.Day)</p>
+                        <p class="publishMonth publishDate">@(System.Globalization.CultureInfo.CreateSpecificCulture("bg-BG").DateTimeFormat.GetMonthName(recipe.Date.Month))</p>
+                        <p class="publishYear publishDate">@(recipe.Date.Year)</p>
+                    </div>
+                    <div class="recipeInfoContainer">
+                        <p >@(recipe.Title)</p>
+                        <ul class="recipeInfo">
+                            @Helpers.PreparationCookTime("Подготовка", recipe.PreparationTime,"li")
+                            <li><strong>Порции: </strong>@(recipe.Serves)</li> 
+                            @Helpers.PreparationCookTime("Готвене", recipe.CookingTime, "li")
+                            <li><strong>Източник: </strong>@(recipe.SourceName)</li>
+                        </ul>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</section>
+
+
+<section id="recipesByRosiRecommedation" class="recipesHomeContainer dottedBorder">
+    <header><h3 class="recipesListTitle">Препоръчани от Роси</h3></header>
+    <article class="recipesInnerContainer">
+        @Html.Partial("_RecipesListViewPartial", Model.RecipesByRosiRecommendation)
+    </article>
+    <footer>
+        @Html.Partial("_PagingPartial", new ViewDataDictionary { { "Pages", ViewBag.RosiRecommodationPages } })
+    </footer>
+</section>
+
+<section id="recipesByRating" class="recipesHomeContainer recipesListTwoOnRow dottedBorder">
+    
+    <h3 class="recipesListTitle">Рецепти с висок рейтинг</h3>
+    <article class="recipesInnerContainer">
+        @Html.Partial("_RecipesListViewPartial", Model.RecipesByRating)
+    </article>
+    <footer>
+        @Html.Partial("_PagingPartial", new ViewDataDictionary { { "Pages", ViewBag.RatingPages } })
+    </footer>
+</section>
+
+<section id="recipesByNubmerOfHits" class="recipesHomeContainer recipesListTwoOnRow dottedBorder">
+    <h3 class="recipesListTitle">Най-посещавани рецепти</h3>
+    <article class="recipesInnerContainer">
+        @Html.Partial("_RecipesListViewPartial", Model.RecipesByNubmerOfHits)
+    </article>
+    <footer>
+        @Html.Partial("_PagingPartial", new ViewDataDictionary { { "Pages", ViewBag.NubmerOfHitsPages } })
+    </footer>
+</section>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('.bxslider').bxSlider({
+                auto: true,
+                autoControls: true
+            });
+        });
+        $(document).ready(function () {
+            GetRecipesListRosiRecommedataionCurrentPage();
+            GetRecipesListHitsCurrentPage();
+            GetRecipesListRatingCurrentPage();
+        });
+        
+    </script>
+}

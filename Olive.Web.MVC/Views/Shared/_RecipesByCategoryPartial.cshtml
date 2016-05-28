@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Olive.Web.MVC.ViewModels.RecipeViewModel>
+           
+@*<section id="allRecipesList" class="recipesContainer dottedBorder">*@
+    <h3 class="recipesListTitle"> @((ViewBag.CurrentTitle).ToString().Replace("Olive-",""))</h3>
+    <article id="recipesInnerContainer" class="recipesInnerContainer">
+        @Html.Partial("_RecipesListViewPartial", Model)
+    </article>
+    <footer>
+        @Html.Partial("_PagingPartial", new ViewDataDictionary { { "Pages", ViewBag.AllRecipesPages }, { "AnchorCssClass", ViewBag.PagingBtnsClass }, { "CurrentCategoryID", ViewBag.CurrentCategoryID } })
+    </footer>
+@*</section>*@

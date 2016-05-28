@@ -1,0 +1,36 @@
+﻿@model Olive.Data.Category
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<section id="deleteCategoryFormContainer">
+    @using (Ajax.BeginForm("Delete", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnFailure = "categoryPostFailure",
+        OnSuccess = "successDeleteCategory"
+    }, new { id = "deleteCategoryForm", @class = "administrationEditDialogForm" }))
+    {
+        <div class="form-group col-sm-12" style="text-align:left">
+            <label for="ingredientName" class="control-label ">Име:</label>
+            <span >
+                @Html.DisplayFor(model => model.Name)
+            </span>
+        </div>
+        
+        if(Model.ParentCategoryID!=null)
+        {
+            <div class="form-group col-sm-12" style="text-align:left">
+                <label for="ingredientName" class="control-label ">Категория родител:</label>
+                <span >
+                    @Html.DisplayFor(model => model.Category1.Name)
+                </span>
+            </div>
+        }
+        
+        <div class="updateDeteleBtnContainer col-sm-12">
+            <input class="deleteBtn" type="submit" value="Изтрий" />
+        </div>
+    }
+</section>

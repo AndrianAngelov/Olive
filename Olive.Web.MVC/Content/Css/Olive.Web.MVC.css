@@ -1,0 +1,613 @@
+﻿/* File Created: октомври 5, 2014 */
+/*
+	Brown Dark #887C64
+    Brown Light #ACA393
+
+    Green Light #DCE1CB rgb:220,225,203
+	Green Middle #86b695
+	Green Dark #81987c
+	Green DarkDark #2e4c24
+
+    Beige #E6E7DB
+   
+    Red Light #E87162
+    Red Dark #E24A37
+
+    Gray LightLight #e9e9e9
+    Gray Light #B4B2AE
+	Gray Dark #5F5E5D
+	Gray DarkDark #5e5d5c
+
+    Yellow #FCD920
+    KillBlue #3CB5B5
+    LightBlack #404040
+	*/
+
+@import url(http://fonts.googleapis.com/css?family=Tenor+Sans&subset=cyrillic,latin);
+@font-face {
+	font-family: 'BACI____';
+	src: url('../Fonts/BACI____.TTF') format('truetype');
+}
+@font-face {
+	font-family: "ZhikharevCTT.ttf";
+	src: url('../Fonts/ZhikharevCTT.ttf') format('truetype');
+	src: local("akaPosse"), url("../fonts/akaPosse.ttf") format("truetype");
+}
+@font-face {
+	font-family: 'MINIDEMO';
+	src: url('../Fonts/MINIDEMO.TTF') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ariston Normal';
+	src: url('../Fonts/Ariston Normal.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Glametrix';
+	src: url('../Fonts/Glametrix/Glametrix.otf') format('opentype');
+}
+@font-face {
+	font-family: 'GlametrixLight';
+	src: url('../Fonts/Glametrix/GlametrixLight.otf') format('opentype');
+}
+@font-face {
+	font-family: 'GlametrixBold';
+	src: url('../Fonts/Glametrix/GlametrixBold.otf') format('opentype');
+}
+@font-face {
+	font-family: 'BACI____';
+	src: url('../Fonts/BACI____.TTF') format('truetype'), url('../Fonts/BACI____.woff');
+}
+@font-face {
+	font-family: 'ANTIQUAA';
+	src: url('../Fonts/ANTIQUAA.woff');
+}
+
+body, header, section, footer, article, h1, h2, h3, h4, h5, h6, input, button, label, p, fieldset, nav, ul, li, a, span, strong, em,img
+{
+	margin: 0;
+	padding: 0;
+	border: 0; /*zoom: 1;*/
+}
+
+div, h1, h3, h4, h5, h6, header, footer, body, section, nav, article, aside
+{
+	display: block;
+}
+
+/*===========================================================
+							Start
+=============================================================*/
+
+body {
+	/*font-family: 'Lobster', serif;*/
+	/*font-family: "Helvetica Neue" , Helvetica, Arial, sans-serif;*/
+	/*font-family: 'Dosis', sans-serif;*/
+	/*font-family: 'Ariston Normal';*/
+	/*font-family: 'GlametrixLight';*/
+	/*font-family: 'Ariston Normal';*/
+	/*font-family: 'MINIDEMO';*/
+	/*font-family: 'BACI____';*/
+	font-family: 'ANTIQUAA';
+	font-size:18px;
+	color: #5F5E5D;
+	/*background-color: #5F5E5D;*/
+	/*background-image: url('../Images/background.jpg') ;*/
+	/*background-image: url('../Images/bg.png');*/
+	
+	
+}
+	#leftHalf {
+	   background: url('../Images/dateTime_icon.png');
+	   width: 49%;
+	   position: absolute;
+	   left: 0px;
+	   height: 50em;
+	   z-index: 0;
+	}
+	#rightHalf {
+	    background: url('../Images/dateTime_icon.png');
+	   width: 49%;
+	   position: absolute;
+	   right: 0px;
+	   height: 50em;
+	   z-index: 0;
+	}
+	/*#leftHalf {
+	   background: url('../Images/dateTime_icon.png');
+	   width: 49%;
+	   position: absolute;
+	   left: 0px;
+	   height: 100%;
+	}
+	#rightHalf {
+	    background: url('../Images/dateTime_icon.png');
+	   width: 49%;
+	   position: absolute;
+	   right: 0px;
+	   height: 100%;
+	}*/
+	
+	h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+		/*line-height: 1.5; 
+		font-weight: bold; */
+	}
+
+header#layoutHeader {
+	/*background-color: #DCE1CB;*/
+	/*background-color: #5F5E5D;*/
+	/*background-image: url('../Images/header_background_light.png');*/
+	background-color: #5F5E5D;
+		background-size: 23px;
+		/*background-image: -webkit-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);
+		background-image: -moz-linear-gradient(0px 50%, transparent 90%, rgba(255, 255, 255, 0.25) 50%);
+		background-image: -ms-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);
+		background-image: -o-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);*/
+	/*background-image: url('../Images/header_background_DarkGraySolid.png');	*/
+	/*background-image: url('../Images/header_background_dark_180deg.png');*/
+	background-image: url('../Images/header_background_dark.png');
+	background-position: 0.6em 0;
+	
+	/*background-color: #86b695;
+		background-size: 22px;
+		background-image: -webkit-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);
+		background-image: -moz-linear-gradient(0px 50%, transparent 90%, rgba(255, 255, 255, 0.25) 50%);
+		background-image: -ms-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);
+		background-image: -o-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);*/
+	height: 7em;
+	/*position: relative;*/
+}
+section#mainContent {
+	/*background-image: url('../Images/wood-background.jpg');*/
+	/*background-color: #5F5E5D;*/
+	/*background: url('../Images/wood_background_v1.jpg') ;*/
+	/*background: url('../Images/wood_background_v1.png') ;*/
+	text-align: center;
+	background-image: url('../Images/bg.png');
+	/*background-color: #5e5d5c;*/
+	margin:0 auto;
+	position: relative;
+	/*border-left: solid #5e5d5c 10px;
+	border-right: solid #5e5d5c 10px;*/
+}
+
+	section#mainContent>h2 {
+		color:White;
+		background-color:#81987c ;
+		font-size: 20px;
+		
+	}
+img#logo {
+	width:200px;
+	height: auto;
+	display: inline-block;
+	/*vertical-align:bottom;*/
+	/*position: relative;*/
+	top:0.8em;
+	left:0.8em;
+	position: absolute;
+	z-index: 2;
+}
+
+a {
+	text-decoration: none;
+	color: #404040;
+}
+
+ul {
+	list-style-type: none;
+	
+}
+/*===========================================
+				Main Menu START
+=============================================*/
+#mainMenuContainer {
+	background-color: #5F5E5D;
+		background-size: 23px;
+		/*background-image: -webkit-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);
+		background-image: -moz-linear-gradient(0px 50%, transparent 90%, rgba(255, 255, 255, 0.25) 50%);
+		background-image: -ms-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);
+		background-image: -o-linear-gradient(0, transparent 90%, rgba(255, 255, 255, .25) 50%);*/
+	background-image: url('../Images/header_background_DarkGraySolid.png');
+	background-position: 0 0.7em;		
+	/*display: inline-block;*/
+	/*vertical-align:middle;*/
+	/*margin-left: 300px;*/
+	font-size: 16px;
+	text-align: right;
+	height:2.6em;
+	/*border-top:solid #2e4c24 1px;*/
+}
+	ul#mainMenu {
+		display: inline-block;
+		vertical-align:bottom;
+	}
+		ul#mainMenu .mainMenuItems, #mainMenu .mainMenuItems a{
+			font-size: larger;
+			font-weight: bold;
+			display: inline-block;
+			/*margin: 0 10px 0 10px;*/
+			margin: 0;
+			padding: 0 5px 0 5px;
+		}
+		ul#mainMenu .mainMenuItems:hover, #mainMenu .mainMenuItems a:hover{
+			/*margin: 0;
+			padding: 0 5px 0 5px;*/
+			background-image: url('../Images/background.jpg') ;
+		}
+/*===========================================
+				Main Menu END
+=============================================*/		
+
+
+
+
+/*#region Categories Menu */
+
+/*===========================================
+				Categories Menu Start
+=============================================*/
+aside {
+	color:#5F5E5D;
+	background-color:White;
+	text-align: center;
+	background-image: url('../Images/background.jpg') ;
+	visibility: hidden;
+	position:absolute;
+	left:30%;
+	/*DCE1CB: */
+	border:solid #DCE1CB 2px;
+	border-top:0; 
+	z-index: 1; 
+}
+	aside .categoriesItemContainer {
+		display:inline-block;
+		vertical-align:top;
+		margin: 0 20px 0 20px;
+	}
+		aside .categoriesItemContainer a:hover{
+			/*color: #81987c;*/
+			color:#E87162;
+			text-decoration: underline;
+		}
+		/*aside .categoriesItemContainer .childCategories a:hover{
+			color: #81987c;
+			color:#E87162;
+			text-decoration: underline;
+		}*/
+		aside .mainCategories{
+			font-weight: bold;
+
+			border-bottom: solid #5F5E5D 1px;
+		}
+			aside .childCategories{
+				/*font-size: 16px;*/
+			}
+			/*#categoriesLink:hover + aside{
+			visibility:visible;
+			}*/
+	
+/*===========================================
+				Categories Menu END
+=============================================*/
+
+/*#endregion*/
+
+/*#region All Recipes List */
+
+
+
+/*#endregion*/
+
+/*===========================================
+				Current Recipe START
+=============================================*/
+#currentRecipe {
+	color:#5F5E5D;
+	padding-bottom: 2em;
+}
+	/*#region CurrentRecipe Header */
+	article#currentRecipe header{
+		/*background: #81987c;*/
+		background: rgba(129,152,124,0.5);
+		color: White;
+		text-align: center;
+		padding: 1em;
+	}
+	
+		article#currentRecipe header ul{
+			padding-top: 1em;
+		}
+			article#currentRecipe header ul li{
+				display:inline-block;
+				vertical-align:middle;
+	
+			}
+					article#currentRecipe header h2{
+						/*line-height: 2;*/
+						font-weight: bold;
+						/*text-shadow: 1px 1px white, -1px -1px #444;*/
+						text-shadow: 1px 1px white, 2px 2px #444;
+						border-bottom: dotted #5F5E5D 3px;
+						margin: 0 0.3em 0 0.3em;
+					}	
+					article#currentRecipe header img{
+						width:4em;
+						height:40px;
+					}
+	/*#endregion*/
+				
+	/*#region CurrentRecipe MainInfoContainer*/
+
+	article#currentRecipe section#recipeMainInfoContainer{
+		text-align: center;
+		padding: 10px;
+		/*background-image: url('../Images/background.jpg') ;*/
+	}
+	
+		article#currentRecipe section#recipeMainInfoContainer #imgContainer{
+			background-color: White;
+			/*background-color: #DCE1CB;*/
+			border: solid #5F5E5D 1px;
+			padding: 5px;
+			display: inline-block;
+			vertical-align:middle;
+			
+		}
+		
+			article#currentRecipe section#recipeMainInfoContainer #imgContainer img{
+				width: 250px;
+				height: 250px;
+				display: inline-block;
+				vertical-align:middle;
+	
+			}
+		
+		/*#region CurrentRecipeMainInfo */
+
+		article#currentRecipe section#recipeMainInfoContainer #mainInfo{
+			color: #5F5E5D;
+			display:inline-block;
+			vertical-align:middle;
+			margin: 0 50px 0 50px;
+		}
+		
+			article#currentRecipe section#recipeMainInfoContainer #mainInfo table {
+				
+			}	
+			
+				article#currentRecipe section#recipeMainInfoContainer #mainInfo table tr{
+					line-height:2em;
+	
+				}
+					article#currentRecipe section#recipeMainInfoContainer #mainInfo table td:nth-child(2n-1){
+						/*color:White;
+						background-color: #81987c;*/
+						text-align: right;
+						font-size: 1em;
+						font-weight: bold;
+	
+					}
+					article#currentRecipe section#recipeMainInfoContainer #mainInfo table td:nth-child(2n){
+						text-align: left;
+						padding-left: 1em;
+					}
+article#currentRecipe section#recipeMainInfoContainer #mainInfo table tr{
+	height: 1px;
+}
+article#currentRecipe section#recipeMainInfoContainer #mainInfo table tr td.separator {
+	background-color: Black;
+}
+		/*#endregion*/
+		
+		article#currentRecipe section#recipeMainInfoContainer #recipeDescription{
+			color: #5F5E5D;
+			background-color: #DCE1CB;
+			border: solid #81987c 1px;
+			display: inline-block;
+			vertical-align:middle;
+			margin: 10px 0 10px 0;
+			padding: 1em;
+			/*height: 220px;
+			width: 300px;*/
+		}
+
+/*#endregion*/
+
+	/*#region CurrentRecipe IngredientsStepsContainer */
+	section#recipeIngredientsStepsContainer {
+		text-align: center;
+	}
+		section#recipeIngredientsStepsContainer h2{
+			font-size: 1.2em;
+			font-weight: bold;
+			background-image: url('../Images/lightRedUnderLine.png');
+			background-repeat: no-repeat;
+			background-position: bottom;
+			padding-bottom: 0.3em;
+			margin-bottom: 0.2em; 
+			text-shadow: 1px 1px white, -1px -1px #444;
+		}
+		section#recipeIngredientsStepsContainer h2#recipeIngredientsTitleText{
+			background-size:6em 0.3em;	
+		}
+		section#recipeIngredientsStepsContainer h2#recipeStepsTitleText {
+			background-size:13em 0.3em;
+		}
+			section#recipeIngredientsStepsContainer h3.subTitle {
+				font-size: 1em;
+				font-weight: bold;
+			}
+		article#recipeIngredients,article#recipeSteps {
+			display: inline-block;
+			vertical-align:top;
+		}
+		
+		article#recipeIngredients{
+		}
+			article#recipeIngredients p{
+				text-align: left;
+			}	
+		
+		article#recipeSteps {
+			width: 60%;
+			margin-left: 4em;
+		}
+			article#recipeSteps p{
+				text-align: justify;
+	
+			}
+			article#recipeSteps span.stepsNumbers{
+				color: #E87162;
+				font-size: larger;
+				font-weight: bolder	;
+			}
+
+	/*#endregion*/
+/*===========================================
+				Current Recipe END
+=============================================*/
+
+/*===========================================
+		Loader Container/Image START
+=============================================*/
+.loaderImageConatiner {
+	/*background-color: rgba(220,225,203,0.5);*/
+	position: absolute;
+	top:48%;
+	left:48%;
+}
+
+	.loaderImageConatiner .loaderImage{
+		/*display: inline-block;*/
+	
+		width: 50px;
+		height: 50px;
+	}
+/*===========================================
+		Loader Container/Image END
+=============================================*/
+@font-face {
+  font-family: 'OpenSans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url("//themes.googleusercontent.com/static/fonts/opensans/v6/u-WUoqrET9fUeobQW7jkRT8E0i7KZn-EPnyo3HZu7kw.woff") format('woff');
+}
+
+
+
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+/*#wrapper {
+	min-height:100%;
+	position:relative;
+	height: auto !important;
+	height:100%;
+}*/
+/*#mainContent {
+	min-height:100%;
+	height: auto !important;
+	height:100%;
+	position:relative;
+	padding-bottom:80px;   
+}
+footer#layoutFooter  {
+	
+	width:100%;
+	height:90px;
+	position:absolute;
+	bottom:0;
+	left:0;
+}*/
+
+/*#region Footer */
+footer#layoutFooter{
+	color:#fff;
+	background-color:#5F5E5D;
+	font-family: 'OpenSans';
+	font-size: 0.72em;
+	position:relative;
+	
+}
+	footer#layoutFooter .footerHeader{
+		height: 1em;
+		background: url('../Images/footerTop.png') repeat-x;
+		position:relative;
+		top:-0.6em;
+		z-index: 2;
+	}
+	footer#layoutFooter .innerContainer{
+		background-color:#5F5E5D;
+		height:65px;
+		padding: 0 1em 1em 1em;
+	}
+	#myInfo a {
+		color: #c4cdc1;
+		
+	}
+/*#endregion*/
+
+body input[type="submit"]:focus ,body input[type="button"]:focus,button[type="submit"]:focus 
+{
+	outline:0;
+}
+body input[type="submit"]{
+
+}
+.input-group{
+	width: 17.2em;
+}
+.navbar-form{
+	margin:0;
+	padding-top:0.25em; 
+}
+#serachString{
+ 	outline:0;
+ 	width: 17em;
+	
+}
+.input-group-btn{
+	margin-left: 5em;
+}
+
+.btn-success{
+	color:#5F5E5D;
+	background-color: #E6E7DB;
+}
+.btn-success:hover{
+	color:#fff;
+	background-color: #81987c;
+}
+.btn-success:focus{
+	outline:0;
+	color:#E6E7DB;
+	background-color: #5F5E5D;
+}
+
+/*
+	Brown Dark #887C64
+    Brown Light #ACA393
+
+    Green Light #DCE1CB rgb:220,225,203
+	Green Middle #86b695
+	Green Dark #81987c
+	Green DarkDark #2e4c24
+
+    Beige #E6E7DB
+   
+    Red Light #E87162
+    Red Dark #E24A37
+
+    Gray LightLight #e9e9e9
+    Gray Light #B4B2AE
+	Gray Dark #5F5E5D
+
+    Yellow #FCD920
+    KillBlue #3CB5B5
+    LightBlack #404040
+	*/

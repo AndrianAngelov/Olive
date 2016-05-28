@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "_MainMenuPartial";
+}
+
+@if(User.Identity.IsAuthenticated)
+{
+    @:<nav id="caContainer" class="authenticated">
+}
+else
+{
+   @:<nav id="caContainer">     
+}
+@* <nav id="caContainer">*@
+    <ul class="ca-menu">
+        <li>
+            <a href="@Url.Action("Index", "Home", new { area = "" })">
+                <i class="ca-icon fa fa-home fa-3x"></i>
+                <div class="ca-content">
+                    <h2 class="ca-main">Начало</h2>
+                    <h3 class="ca-sub">Върни се на началната страница</h3>
+                </div>
+            </a>                   
+        </li>
+            <li>
+            <a href="@Url.Action("List", "Recipes", new { id="",area = "" })">
+            @*<a href="/Рецепти/Всички">*@
+                <i class="ca-icon fa fa-newspaper-o fa-3x" ></i>
+                <div class="ca-content">
+                            
+                    <h2 class="ca-main">Рецепти</h2>
+                    <h3 class="ca-sub">Виж рецептите на Роси</h3>
+                </div>
+            </a>                   
+        </li>
+        <li>
+            <a href="@Url.Action("About", "Home", new { area = "" })">
+                <i class="ca-icon fa fa-sun-o fa-3x"></i>
+                <div class="ca-content">
+                    <h2 class="ca-main">За Роси</h2>
+                    <h3 class="ca-sub">Виж подробности за Роси</h3>
+                </div>
+            </a>                    
+        </li>
+
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+        {
+            <li>
+            <a href="@Url.Action("Index", "Home", new { Area = "Administration" })">
+                <i class="ca-icon fa fa-user fa-3x"></i>
+                <div class="ca-content">
+                    <h2 class="ca-main">Админ</h2>
+                    <h3 class="ca-sub">Добавяне Променяне Изтриване </h3>
+                </div>
+            </a>                    
+        </li>
+        }    
+                 
+    </ul>
+</nav>

@@ -1,0 +1,21 @@
+﻿@model Olive.Data.Source
+
+<tr id="@(Model.SourceID)">
+    <td class="modelData">
+        @Html.DisplayFor(modelItem => Model.Name)
+    </td>
+
+    <td>
+        @Html.Hidden("id", Model.SourceID)
+        <input class="editBtn ajaxEditBtn" type="button" value="Промени" />   
+        <input class="deleteBtn ajaxDeleteBtn" type="submit" value="Изтрий" />
+    </td>
+</tr>
+
+ @* @Ajax.ActionLink("DeleteAjaxLink","Delete", new { id = Model.SourceID }, new AjaxOptions()
+    {
+        OnSuccess = "successDeleteSource"   
+        ,Confirm="Are you sure that you want to delete this item?"
+        , HttpMethod = "post"
+    })*@
+

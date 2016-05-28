@@ -1,0 +1,97 @@
+﻿/* File Created: октомври 14, 2014 */
+.homeSliderContainer {
+	width: 40%;
+	padding: 10px 10px 20px 10px;
+	margin: 10px;
+	display: inline-block;
+	vertical-align:middle;
+	position:relative;
+	overflow: hidden;
+}
+	.homeSliderContainer img{
+		width: 100%;
+		height: 15em;
+		-webkit-transition: 0.8s ease-in-out;
+	}
+	.homeSliderContainer img:hover{
+		-ms-transform: scale(1.1,1.1);
+		-moz-transform: scale(1.1,1.1);
+		-webkit-transform: scale(1.1,1.1);
+		
+		transform: scale(1.1,1.1);
+	}
+	
+	.homeSliderContainer .publishDateContainer {
+		position:absolute;
+		top:0.2em;
+	}
+		.homeSliderContainer .publishDateContainer img{
+			width: 5em;
+			height:5em;
+		}
+		.homeSliderContainer .publishDateContainer .publishDate{
+			color:#fff;
+			font-weight:bold;
+			position: absolute;
+			top:0;
+		}
+		.homeSliderContainer .publishDateContainer .publishDay{
+			font-size:2.9em;
+			left:25%;
+			
+		}
+		.homeSliderContainer .publishDateContainer .publishMonth{
+			font-size:0.8em;
+			top:2.5em;
+			left:1.8em;
+			-moz-transform:rotate(-90deg);
+			-webkit-transform:rotate(-90deg);
+			transform:rotate(-90deg);
+		}
+		.homeSliderContainer .publishDateContainer .publishYear{
+			font-size:1em;
+			top:3.3em;
+			left:15%;
+		}
+	.homeSliderContainer .recipeInfoContainer {
+		color: #404040 ;
+		/*background-color: rgba(134,182,149,0.85);*/
+		/*background-color: rgba(220,225,203,0.85);*/
+		background-color: rgba(233,233,233,0.85);
+		position:absolute;
+		top:70%;
+		left:1em;
+		width: 20em;
+		height:3.5em;
+		/*line-height: 3.5em;*/
+		text-align: center;
+		padding-right: 2px;
+		
+	}
+		.homeSliderContainer .recipeInfoContainer p {
+			width: 20em;
+			height:25px;
+			/*padding-right:0.2em; */
+			white-space: nowrap; 
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.homeSliderContainer .recipeInfoContainer ul.recipeInfo {
+			font-size: 0.7em;
+			text-align: left;
+			padding-left: 2.6em;
+		}
+			.homeSliderContainer .recipeInfoContainer ul.recipeInfo li{
+				display:inline-block;
+	
+			}
+				.homeSliderContainer .recipeInfoContainer ul.recipeInfo li:last-child{
+					margin-left:2em;
+				}
+.bx-wrapper {
+	margin: 0;
+}
+	.bx-wrapper .bx-pager {
+		font-size: 1em;
+	}
+

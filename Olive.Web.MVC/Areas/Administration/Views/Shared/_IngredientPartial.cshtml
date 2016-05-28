@@ -1,0 +1,13 @@
+﻿@model Olive.Data.Ingredient
+
+<tr id="@(Model.IngredientID)">
+    <td class="modelData">
+        @Html.DisplayFor(modelItem => Model.Name)
+    </td>
+
+    <td>
+        @Html.Hidden("id", Model.IngredientID)
+        <input class="editBtn ajaxEditBtn" type="button" value="Промени" />   
+        <input class="deleteBtn ajaxDeleteBtn" type="submit" value="Изтрий" />
+    </td>
+</tr>

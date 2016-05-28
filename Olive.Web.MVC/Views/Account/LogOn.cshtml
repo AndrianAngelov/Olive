@@ -1,0 +1,57 @@
+﻿@model Olive.Web.MVC.Models.LogOnModel
+
+@{
+    ViewBag.Title = "Log On";
+}
+
+<script src="../../Content/JS/External/jquery.validate.min.js" type="text/javascript"></script>
+<script src="../../Content/JS/External/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+
+<div id="LoginFormInnerContainer">
+        
+    @using (Ajax.BeginForm("LogOn", "Account", new { area=""}, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "LoginFormOuterContainer",
+        OnSuccess = "successLogin"
+    }, new { id = "LoginForm", @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "въведи потребителско име" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "loginErrors" })
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-lock"></span>
+            </div>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "въведи парола" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "loginErrors" })
+        </div>
+
+        <p class="col-sm-12">
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe, "Да те запомня ли?")
+        </p>
+
+        <p class="col-sm-12">
+            <input id="loginBtn" class="btn btn-success" type="submit" value="Влез" />
+        </p>
+    }
+</div>
+	
+<div id="show-btn" class="login_button" style="display: visible;">
+	<a >Вход</a> 
+</div>
+	
+<div id="hide_button" class="login_button"  style="display: none;">
+	<a ><i class="fa fa-arrow-circle-up fa-2x"></i></a> 
+</div>
+
+@section Styles {
+    <link href="../../Content/Css/Administration.css" rel="stylesheet" type="text/css" />
+}
+

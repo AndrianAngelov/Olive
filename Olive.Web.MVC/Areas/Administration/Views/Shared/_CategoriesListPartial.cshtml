@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Olive.Data.Category>
+
+ <table id="categoriesTable" class="table table-hover">
+    
+    <tbody id="categoriesTableBody">
+        <tr>
+            <th class="tableHeaderText">
+                Главна категория
+            </th>
+            <th class="tableHeaderText">
+            </th>
+            <th class="tableHeaderText">
+                Подкатегории
+            </th>
+            <th class="tableHeaderText">
+            </th>
+        </tr>
+
+        @foreach (var parentCategory in Model)
+        {
+            <tr id="@parentCategory.CategoryID">
+                <td class="modelData parentCategoryName" valign="center">
+                    @Html.DisplayFor(modelItem => parentCategory.Name)
+                </td>
+                <td>
+                    @Html.Hidden("id", parentCategory.CategoryID)
+                    <input class="editBtn ajaxEditBtn" type="button" value="Промени" />   
+                    <input class="deleteBtn ajaxDeleteBtn" type="submit" value="Изтрий" />
+                </td>
+                <td class="modelData chlidrenCategoriesContainer">
+                    <ul >
+                        @foreach (var childCategory in parentCategory.Categories1)
+                        {
+                            <li id="@childCategory.CategoryID">
+                                @childCategory.Name
+                                <span>
+                                    @Html.Hidden("id", childCategory.CategoryID)
+                                    <input class="editBtn ajaxEditBtn" type="button" value="Промени" />   
+                                    <input class="deleteBtn ajaxDeleteBtn" type="submit" value="Изтрий" />
+                                </span>
+                            </li> 
+                        }
+                    </ul> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--<BitmapImage x:Key="WoodBackground" UriSource="wood-background.jpg" />-->
+
+    <ImageBrush x:Key="WoodBackground"  
+                ImageSource="../Resources/wood-background.jpg" 
+                TileMode="Tile" 
+                Viewport="0,0,0.1,1"/>
+
+    <BitmapImage x:Key="RecipeTitleDecoration" UriSource="../Resources/olive_twig.png" />
+
+    <Color x:Key="ColorDarkBrown">#887C64</Color>
+    <Color x:Key="ColorLightBrown">#ACA393</Color>
+    <Color x:Key="ColorDarkGreen">#81987c</Color>
+    <Color x:Key="ColorLightGreen">#DCE1CB</Color>
+    <Color x:Key="ColorBeige">#E6E7DB</Color>
+   
+    <Color x:Key="ColorLightRed">#E87162</Color>
+    <Color x:Key="ColorDarkRed">#E24A37</Color>
+    <Color x:Key="ColorLightLightGray">#e9e9e9</Color>
+    <Color x:Key="ColorLightGray">#B4B2AE</Color>
+    <Color x:Key="ColorDarkGray">#5F5E5D</Color>
+    <Color x:Key="ColorYellow">#FCD920</Color>
+    <Color x:Key="ColorKillBlue">#3CB5B5</Color>
+    <Color x:Key="ColorLightBlack">#404040</Color>
+
+    <SolidColorBrush x:Key="SolidBrushDarkBrown" Color="{StaticResource ColorDarkBrown}"/>
+    <SolidColorBrush x:Key="SolidBrushLightBrown" Color="{StaticResource ColorLightBrown}"/>
+    
+    <SolidColorBrush x:Key="SolidBrushDarkGreen" Color="{StaticResource ColorDarkGreen}"/>
+    <SolidColorBrush x:Key="SolidBrushDarkGreenOpacity" Color="{StaticResource ColorDarkGreen}" Opacity="0.7"/>
+    <SolidColorBrush x:Key="SolidBrushLightGreen" Color="{StaticResource ColorLightGreen}"/>
+    <SolidColorBrush x:Key="SolidBrushLightGreenOpacity" Color="{StaticResource ColorLightGreen}" Opacity="0.5"/>
+    
+    <SolidColorBrush x:Key="SolidBrushBeige" Color="{StaticResource ColorBeige}"/>
+    <SolidColorBrush x:Key="SolidBrushBeigeOpacity" Color="{StaticResource ColorBeige}" Opacity="0.75"/>
+    
+    <SolidColorBrush x:Key="SolidBrushYellow" Color="{StaticResource ColorYellow}"/>
+    <SolidColorBrush x:Key="SolidBrushKillBlue" Color="{StaticResource ColorKillBlue}"/>
+
+    <SolidColorBrush x:Key="SolidBrushLightRed" Color="{StaticResource ColorLightRed}"/>
+    <SolidColorBrush x:Key="SolidBrushDarkRed" Color="{StaticResource ColorDarkRed}"/>
+    
+    <SolidColorBrush x:Key="SolidBrushLightLightGray" Color="{StaticResource ColorLightLightGray}"/>
+    <SolidColorBrush x:Key="SolidBrushLightGray" Color="{StaticResource ColorLightGray}"/>
+    <SolidColorBrush x:Key="SolidBrushDarkGray" Color="{StaticResource ColorDarkGray}"/>
+    <SolidColorBrush x:Key="SolidBrushDarkGrayOpacity" Color="{StaticResource ColorDarkGray}" Opacity="0.75"/>
+    <SolidColorBrush x:Key="SolidBrushLightBlack" Color="{StaticResource ColorLightBlack}"/>
+
+
+</ResourceDictionary>

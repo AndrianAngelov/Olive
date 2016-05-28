@@ -1,0 +1,31 @@
+﻿@model Olive.Data.Unit
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<section id="deleteUnitFormContainer">
+    @using (Ajax.BeginForm("Delete", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnFailure = "unitPostFailure",
+        OnSuccess = "successDeleteUnit"
+    }, new { id = "deleteUnitForm", @class = "administrationEditDialogForm" }))
+    {
+        <div class="form-group ">
+            <label for="ingredientName" class="control-label">Пълно име:</label>
+            <span >
+                @Html.DisplayFor(model => model.UnitName)
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="ingredientName" class="control-label">Кратко име:</label>
+            <span >
+                @Html.DisplayFor(model => model.UnitShortName)
+            </span>
+        </div>
+        <div class="updateDeteleBtnContainer">
+            <input class="deleteBtn" type="submit" value="Изтрий" />
+        </div>
+    }
+</section>

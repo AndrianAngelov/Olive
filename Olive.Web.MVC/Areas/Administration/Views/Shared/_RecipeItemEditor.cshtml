@@ -1,0 +1,10 @@
+﻿@model Olive.Data.RecipeItem
+@using Olive.Web.MVC.Helpers
+
+<article class="recipeItemContainer"> 
+
+@using (Html.BeginCollectionItem("recipeItems"))
+{
+    @Html.EditorForModel()
+}
+</article>

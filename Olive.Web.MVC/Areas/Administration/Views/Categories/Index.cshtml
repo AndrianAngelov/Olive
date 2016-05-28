@@ -1,0 +1,161 @@
+﻿@model Olive.Web.MVC.Areas.Administration.ViewModels.AdminCategoriesIndexViewModel
+
+@{
+    ViewBag.Title = "Olive-Категории";
+    Layout = "~/Areas/Administration/Views/Shared/_AdministrationLayout.cshtml";
+}
+<script src="../../../../Content/JS/External/jquery.validate.js" type="text/javascript"></script>
+<script src="../../../../Content/JS/External/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+@if (false)
+{
+    <script src="../../../../Content/JS/External/jquery-2.1.0-vsdoc.js" type="text/javascript"></script>
+    <script src="../../Content/JS/AdminCRUDAjax.js" type="text/javascript"></script>    
+}
+
+<h2>Категории</h2>
+<section id="newCategoryFormContainer" class="administrationCommonFormContainer">
+    @using (Ajax.BeginForm("Create", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "categoriesContainer",
+        OnFailure = "categoryPostFailure",
+        OnSuccess = "successInsertCategoryAjax"
+    }, new { id = "newCategoryForm", @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group ">
+            <h3>Добави категория</h3>
+            <label for="categoryName" class="col-sm-3 control-label">Име:</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Name, new { id = "categoryName", @class = "form-control", placeholder = "Име на категорията" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <label for="NewCategoryType" class="col-sm-3 control-label">Тип на категорията: </label>
+            <div class="col-sm-4">
+                <div class="radio-inline">
+                    @Html.RadioButtonFor(x => x.NewCategoryType, Olive.Web.MVC.Areas.Administration.Models.CategoryType.Parent, new { @class = "newCatType" }) Главна
+                </div>
+                <div class="radio-inline">
+                    @Html.RadioButtonFor(x => x.NewCategoryType, Olive.Web.MVC.Areas.Administration.Models.CategoryType.Child, new { @class = "newCatType " }) Подкатегория
+                </div>
+                    @Html.ValidationMessageFor(m => m.NewCategoryType)
+            </div>
+            <div id="parentCategoriesDDCreateContainer" class="col-sm-8">
+                    <label id="labelForParentOfChildCategory" for="parentCategoriesDDCreate" class="col-sm-5 control-label">Родител на подкатегорията: </label>
+                    <span class="adminRecipeDropDownContainer col-sm-4"> @Html.DropDownListFor(model => model.SelectedParentCategoryID, new SelectList(Model.ParentCategories, "CategoryID", "Name"), "--- Избери Главна Категория ---", new { id = "parentCategoriesDDCreate", @class = "adminRecipeDropDown ", disabled = "disabled" })</span>
+                    @Html.ValidationMessageFor(model => model.SelectedParentCategoryID)
+            </div>
+            <div class="col-sm-12">
+                <input class="createBtn" type="submit" value="Добави" />
+            </div>
+        </div>
+    }
+    
+</section>
+<section id="categoriesContainer"  class="administrationCommonTableContainer">
+    @Html.Partial("_CategoriesListPartial", Model.ParentCategories)
+</section>
+
+@section Scripts{
+<script type="text/javascript">
+    //radio buttons new category click elevnt registration
+    $(document).on("click", ".newCatType", function () {
+        if ($(this).val() == "Child") {
+            $("#parentCategoriesDDCreateContainer").show();
+            $("#parentCategoriesDDCreate").removeAttr('disabled');
+            $('#parentCategoriesDDCreate option:eq(1)').prop('selected', true)
+        }
+        else {
+            $("#parentCategoriesDDCreateContainer").hide();
+
+        }
+    });
+
+    //radio buttons edit category click event registration
+    $(document).on("click", ".editCatType", function () {
+        if ($(this).val() == "Child") {
+            $(".parentCategoryDDContainerEdit").show();
+            $("#parentCategoriesEdit").removeAttr('disabled');
+        }
+        else {
+            $(".parentCategoryDDContainerEdit").hide();
+            $("#parentCategoriesEdit").attr('disabled', 'disabled');
+        }
+    });
+
+    function ReloadParendCategoriesDropDown() {
+        var parentCategoriesDropdown = $('#parentCategoriesDDCreate');
+        $.getJSON('@Url.Action("GetAllParentCategories")')
+        .done(function (data) {
+            parentCategoriesDropdown.empty();
+            var option = "<option value>" + "--- Избери Главна Категория ---" + "</option>";
+            parentCategoriesDropdown.append(option);
+            $.each(data, function (i, parentCategory) {
+                //Create new option
+                var option = "<option value=" + '"' + parentCategory.CategoryID + '"' + ">" + parentCategory.Name + "</option>";
+                //append state states drop down
+                parentCategoriesDropdown.append(option);
+            });
+        })
+        .fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+            console.log("Request Failed: " + err);
+        });
+    };
+
+    //Clear new category form
+    function resetNewCategoryForm() {
+        $('#categoryName').val("");
+        $('#parentCategories option:eq(0)').prop('selected', true)
+        $("#parentCategories").attr('disabled', 'disabled');
+        $("#parentCategoriesDDCreateContainer").hide();
+        var categoryTypeRadioBtns = $(".newCatType");
+        categoryTypeRadioBtns.each(function () {
+            $(this).prop('checked', false);
+        });
+
+    };
+
+    $(document).ready(function () {
+        AdminAjax.LoadCategoryInEditDialog("Промени категорията");
+        AdminAjax.LoadCategoryInDeleteDialog("Изтрий категорията");
+
+        $("#parentCategoriesDDCreateContainer").hide();
+    });
+
+    function categoryPostFailure() {
+        alert("Error");
+    };
+
+    function successInsertCategoryAjax() {
+        ReloadParendCategoriesDropDown();
+        resetNewCategoryForm();
+        AdminAjax.LoadCategoryInEditDialog("Промени категорията");
+        AdminAjax.LoadCategoryInDeleteDialog("Изтрий категорията");
+        AdminAjax.ShowMessageDialog("Успешно добавихте нова категория");
+    };
+    function successUpdateCategoryAjax(data) {
+        AdminAjax.LoadCategoryInEditDialog("Промени категорията");
+        AdminAjax.LoadCategoryInDeleteDialog("Изтрий категорията");
+        $('#adminDialog').empty();
+        $('#adminDialog').dialog("close");
+
+        ReloadParendCategoriesDropDown();
+        AdminAjax.ShowMessageDialog("Успешно променихте категория");
+    };
+
+    function successDeleteCategory(id) {
+        var deletedId = "#" + id;
+        $('#adminDialog').empty();
+        $('#adminDialog').dialog("close");
+        $(deletedId).remove();
+
+        AdminAjax.LoadCategoryInEditDialog("Промени категорията");
+        AdminAjax.LoadCategoryInDeleteDialog("Изтрий категорията");
+        ReloadParendCategoriesDropDown();
+        AdminAjax.ShowMessageDialog("Успешно изтрихте категорията");
+    }
+
+</script>
+}

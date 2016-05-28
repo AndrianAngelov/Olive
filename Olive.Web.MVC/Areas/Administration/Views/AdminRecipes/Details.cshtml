@@ -1,0 +1,81 @@
+﻿@model Olive.Data.Recipe
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Administration/Views/Shared/_AdministrationLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Recipe</legend>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">ImageURL</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ImageURL)
+    </div>
+
+    <div class="display-label">ImageVersion</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ImageVersion)
+    </div>
+
+    <div class="display-label">Rating</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rating)
+    </div>
+
+    <div class="display-label">PreparationTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PreparationTime)
+    </div>
+
+    <div class="display-label">CookingTime</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CookingTime)
+    </div>
+
+    <div class="display-label">Serves</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Serves)
+    </div>
+
+    <div class="display-label">Source</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Source.Name)
+    </div>
+
+    <div class="display-label">Date</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date)
+    </div>
+
+    <div class="display-label">Description</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">NumberOfHits</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumberOfHits)
+    </div>
+
+    <div class="display-label">NumberOfLikes</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumberOfLikes)
+    </div>
+
+    <div class="display-label">Recommended</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Recommended)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RecipeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

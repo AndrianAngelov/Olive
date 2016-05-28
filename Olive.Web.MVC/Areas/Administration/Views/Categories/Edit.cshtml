@@ -1,0 +1,74 @@
+﻿@model Olive.Web.MVC.Areas.Administration.ViewModels.AdminCategoriesIndexViewModel
+@using Olive.Web.MVC.Areas.Administration.Models
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<section id="updateCategoryFormContainer">
+    @using (Ajax.BeginForm("Edit", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "categoriesContainer",
+        OnFailure = "categoryPostFailure",
+        OnSuccess = "successUpdateCategoryAjax"
+    }, new { id = "updateCategoryForm", @class = "form-horizontal administrationEditDialogForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <input type="hidden" id="CategoryID" name="CategoryID" value="@Model.CategoryID"/>
+        <div class="form-group ">
+            <label for="categoryName" class="col-sm-5 control-label">Име:</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.Name, new { id = "categoryName", @class = "form-control", placeholder = "Име на категорията" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <label for="NewCategoryType" class="col-sm-5 control-label">Тип на категорията: </label>
+            <div class="col-sm-5 radioBtnsContainer">
+                @if (Model.NewCategoryType.ToString() == "Parent")
+                {
+                    @Html.RadioButtonFor(x => x.NewCategoryType, Olive.Web.MVC.Areas.Administration.Models.CategoryType.Parent, new { @class = "editCatType", @checked = "checked" }) @:Главна
+                    @Html.RadioButtonFor(x => x.NewCategoryType, Olive.Web.MVC.Areas.Administration.Models.CategoryType.Child, new { @class = "editCatType" }) @:Подкатегория
+                    @Html.ValidationMessageFor(m => m.NewCategoryType)
+                }
+                @if (Model.NewCategoryType.ToString() == "Child")
+                {
+                    @Html.RadioButtonFor(x => x.NewCategoryType, Olive.Web.MVC.Areas.Administration.Models.CategoryType.Parent, new { @class = "editCatType" }) @:Главна
+                    @Html.RadioButtonFor(x => x.NewCategoryType, Olive.Web.MVC.Areas.Administration.Models.CategoryType.Child, new { @class = "editCatType", @checked = "checked" }) @:Подкатегория
+                    @Html.ValidationMessageFor(m => m.NewCategoryType)   
+                }    
+                
+            </div>
+            <div class="parentCategoryDDContainerEdit col-sm-8">
+                <label id="labelForParentOfChildCategory" for="parentCategoriesDDCreate" class="col-sm-9 control-label">Родител на подкатегорията: </label>
+                <span class="adminRecipeDropDownContainer col-sm-3"> @Html.DropDownListFor(model => model.SelectedParentCategoryID, new SelectList(Model.ParentCategories, "CategoryID", "Name"), "--- Избери Главна Категория ---", new { id = "parentCategoriesEdit", @class = "adminRecipeDropDown ", disabled = "disabled" })</span>
+                @Html.ValidationMessageFor(model => model.SelectedParentCategoryID)          
+            </div>
+        </div>
+        <div class="updateDeteleBtnContainer">
+            <input class="editBtn" type="submit" value="Промени" />
+        </div>
+    }
+    
+</section>
+
+<script type="text/javascript">
+    var categoryTypeRadioBtns = $(".editCatType");
+    var categoryTypeRadioBtnValue = '';
+    categoryTypeRadioBtns.each(function () {
+        if ($(this).attr("checked") == "checked") {
+            categoryTypeRadioBtnValue = $(this).val()
+        }
+    });
+    
+    if (categoryTypeRadioBtnValue == "Child") {
+        $(".parentCategoryDDContainerEdit").show();
+        $("#parentCategoriesEdit").removeAttr('disabled');
+    }
+    else {
+        $(".parentCategoryDDContainerEdit").hide();
+        $("#parentCategoriesEdit").attr('disabled', 'disabled');
+    }
+</script>

@@ -1,0 +1,12 @@
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\Olive.Data.dll.config
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\Olive.Data.dll
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\Olive.Data.pdb
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\Cloudinary.dll
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\CloudinaryDotNet.dll
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\EntityFramework.dll
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\Newtonsoft.Json.dll
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\EntityFramework.xml
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\bin\Debug\Newtonsoft.Json.xml
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\obj\Debug\Olive.Data.dll
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\obj\Debug\Olive.Data.pdb
+G:\new age\1 TELERIK\JobAttack\REAL\_JobPrep\GitHub\Olive\Olive.Data\obj\Debug\Olive.Data.csprojResolveAssemblyReference.cache

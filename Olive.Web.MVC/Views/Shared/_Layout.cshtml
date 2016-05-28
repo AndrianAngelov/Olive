@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../../Content/Images/OliveIcon.ico" />
+    <link href="@Url.Content("~/Content/External/Bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css"  />
+     <script src="@Url.Content("~/Content/JS/External/modernizr-2.6.2.js")" type="text/javascript"></script>
+    <script src="//cdn.ckeditor.com/4.4.5/standard/ckeditor.js" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Content/JS/External/jquery-2.1.0.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Content/External/Bootstrap/js/bootstrap.min.js")" type="text/javascript" ></script>
+    <link href="@Url.Content("~/Content/External/ResponsiveSlides/responsiveslides.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/External/BxSlider/jquery.bxslider.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/External/ResponsiveImagesGrid/jquery-hover-effect.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/External/BxSlider/jquery.bxslider.css")" rel="stylesheet" type="text/css" />
+    
+    <link href="@Url.Content("~/Content/External/jquery-ui-1.11.2/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/External/jquery-ui-1.11.2/jquery-ui.js")" type="text/javascript"></script>
+
+    @RenderSection("CategoriesMenuCss", false)
+
+    <link href="@Url.Content("~/Content/Css/All.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/JS/OliveImagesGrid.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/JS/BubblesCategoriesMenu.js")" type="text/javascript"></script>
+    @RenderSection("Styles", false)
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="@Url.Content("~/Content/JS/LoginRegister.js")" type="text/javascript"></script>
+  
+    <script type="text/javascript">
+        
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+       
+        <header id="layoutHeader">
+            <img id="logo" src="@Url.Content("~/Content/Images/OliveLogo.png")" alt="logo"/>
+            @if(User.Identity.IsAuthenticated)
+            {
+                @Html.Partial("_LogOutPartial")
+            }
+            @Html.Partial("_MainMenuPartial")
+
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <section id="LoginFormOuterContainer">
+                @Html.Partial("~\\Views\\Account\\LogOn.cshtml", new Olive.Web.MVC.Models.LogOnModel())
+                </section>
+            }
+            
+
+        </header>
+        
+        <nav id="mainMenuContainer">
+            <div>
+                @using (Html.BeginForm("Search", "Recipes", new { area = "" }, FormMethod.Post, new { @class = "navbar-form", id = "search-form" }))
+                {
+                    <div class="input-group">
+                        @Html.TextBox("searchString", null, new { type = "text", @class = "form-control", placeholder = "заглавие,категория,съставки", id = "serachString" })  
+                        <div class="input-group-btn">
+				            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+			            </div>
+                    </div>
+                }
+            </div>
+        </nav>
+        
+        <section id="mainContent">
+            @RenderBody()
+        </section>
+         <footer id="layoutFooter">
+            <div class="footerHeader"></div>
+            <div class="innerContainer">
+                <div >
+                    <div id="myInfo">
+                        <p>
+                            Copyright © 2014 Andrian Angelov. All rights reserved.
+                        </p>
+                        <p>
+                            <span>Developed & Designed By:</span><a href="https://maps.google.com/?ll=42.690543,23.338405&spn=0.004692,0.006899&t=m&z=17">Andrian.Angelov@abv.bg</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+   
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#categoriesLink").mouseover(function () {
+            $("aside").css("visibility", "visible");
+            $("#categoriesLink").css("background", "url(Content/Images/background.jpg)");
+        });
+        $("aside").mouseleave(function () {
+            $("aside").css("visibility", "hidden");
+            $("#categoriesLink").css("background", "#DCE1CB");
+        });
+        $("#mainContent").mouseover(function () {
+            $("aside").css("visibility", "hidden");
+            $("#categoriesLink").css("background", "#DCE1CB");
+        });
+        PagingButtonsHover();
+        SetDefaultStartPages();
+    });
+
+    RecipesItemsHover();
+    SetDefaultStartPages();
+
+</script>
+@RenderSection("Scripts", false)
+<script src="@Url.Content("~/Content/JS/External/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+﻿@model Olive.Data.RecipeItems_Ingredients
+@using Olive.Web.MVC.Helpers
+
+@{
+    var recipeItemID = "forReplace";
+    if (ViewData["RecipeItemID"] != null)
+    {
+        recipeItemID = (string)ViewData["RecipeItemID"];
+    }
+}
+
+@using (Html.BeginCollectionItem(recipeItemID+".recipeItems_ingredients"))
+{
+    @Html.EditorForModel()
+}

@@ -1,0 +1,17 @@
+﻿@model Olive.Data.Unit
+
+<tr id="@(Model.UnitID)">
+    <td class="modelData unitName">
+        @Html.DisplayFor(modelItem => Model.UnitName)
+    </td>
+
+    <td class="modelData unitShortName">
+        @Html.DisplayFor(modelItem => Model.UnitShortName)
+    </td>
+
+    <td>
+        @Html.Hidden("id", Model.UnitID)
+        <input class="editBtn ajaxEditBtn" type="button" value="Промени" />   
+        <input class="deleteBtn ajaxDeleteBtn" type="submit" value="Изтрий" />
+    </td>
+</tr>

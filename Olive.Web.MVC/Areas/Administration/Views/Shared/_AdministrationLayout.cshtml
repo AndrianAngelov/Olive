@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Olive-Администрация";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div class="darkHeaderBottomBorder"></div>
+<section class="administrationContainer">
+    @*Navigation*@
+    @Html.Partial("~/Areas/Administration/Views/Shared/_AdminMenuPartial.cshtml")
+
+    <article class="administrationBody">
+    
+        @RenderBody()
+    </article>
+    <div id="adminDialog"></div>
+    <div id="adminDialogMessages"></div>
+</section>
+
+@section Scripts{
+    @RenderSection("Scripts", false)
+    <script type="text/javascript">
+        function ingredientsStepsSeparator(ingredientsContainer, stepsContainer) {
+            var ingredientsContainerHeight = ingredientsContainer.outerHeight();
+            console.log("ingredientsContainerHeight: " + ingredientsContainerHeight);
+            var stepsContainerHeight = stepsContainer.outerHeight();
+            console.log("stepsContainerHeight: " + stepsContainerHeight);
+            var ingredientsStepsSeparatorHeight = 0;
+            if (ingredientsContainerHeight > stepsContainerHeight) {
+                separatorHeight = ingredientsContainerHeight;
+            }
+            else {
+                separatorHeight = stepsContainerHeight-5;
+            }
+            var ingredientsStepsSeparator = ingredientsContainer.siblings(".ingredientsStepsSeparator");
+            console.log("ingredientsStepsSeparator: " + ingredientsStepsSeparator);
+            ingredientsStepsSeparator.css({
+                height: separatorHeight,
+                width: "2px",
+                'border-left': 'dashed #5F5E5D 1px',
+                'margin-top':'0.4em'
+            });
+        };
+        
+        function successAddRecipeItem() {
+            $("a.deleteSection").on("click", function () {
+                $(this).parents("article.recipeItemContainer:first").remove()
+            });
+        };
+        function successAddStep() {
+            alert("successAddStep");
+        }
+
+        $(document).on("click", ".addRecipeItemIngredient", function () {
+            var recipeItemIndex = $(this).parents("article.recipeItemContainer:first").children().first().val()
+            var recipeItemID = "recipeItems[" + recipeItemIndex + "]";
+            var recipeItemIDParam = { recipeItemID: recipeItemID };
+            $.ajax({
+                url: this.href,
+                data: recipeItemIDParam,
+                cache: false,
+                success: function (html) {
+                    $(".ingredients").each(function () {
+                        if ($(this).parents("article.recipeItemContainer:first").children().first().val() === recipeItemIndex) {
+                            $(this).append(html);
+                        }
+                    });
+                    var stepsContainer = $(".stepsContainer");
+                    var ingredientsContainer = $(".ingredientsContainer");
+                    ingredientsStepsSeparator(ingredientsContainer, stepsContainer);
+                }
+            });
+            return false;
+        });
+
+        $(document).on("click", ".addRecipeItemStep", function () {
+            var recipeItemIndex = $(this).parents("article.recipeItemContainer:first").children().first().val()
+            var recipeItemID = "recipeItems[" + recipeItemIndex + "]";
+            var recipeItemIDParam = { recipeItemID: recipeItemID };
+            $.ajax({
+                url: this.href,
+                data: recipeItemIDParam,
+                cache: false,
+                success: function (html) {
+                    $(".steps").each(function () {
+                        if ($(this).parents("article.recipeItemContainer:first").children().first().val() === recipeItemIndex) {
+                            $(this).append(html);
+                        }
+                    });
+                    var stepsContainer = $(".stepsContainer");
+                    var ingredientsContainer = $(".ingredientsContainer");
+                    ingredientsStepsSeparator(ingredientsContainer, stepsContainer);
+                }
+            });
+            return false;
+        });
+        $(document).on("click", "a.deleteRecipeItemStep", function () {
+            $(this).parent().remove();
+            return false;
+        });
+        $(document).on("click", "a.deleteRecipeItemIngredient", function () {
+            $(this).parent().remove();
+            return false;
+        });
+    </script>
+}
+<script src="@Url.Content("~/Areas/Administration/Content/JS/AdminCRUDAjax.js")" type="text/javascript"></script>
+

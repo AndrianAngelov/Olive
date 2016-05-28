@@ -1,0 +1,43 @@
+﻿@model Olive.Data.Unit
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<section id="updateIngredientFormContainer">
+    @using (Ajax.BeginForm("Edit", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.InsertAfter,
+        UpdateTargetId = "unitsTableBody",
+        OnFailure = "unitPostFailure",
+        OnSuccess = "successUpdateUnitAjax"
+    }, new { id = "updateUnitForm", @class = "form-horizontal administrationEditDialogForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group ">
+            <label for="ingredientName" class="col-sm-5 control-label">Пълно име:</label>
+            <div class="col-sm-7">
+                @Html.Hidden("id", Model.UnitID)
+                @Html.TextBoxFor(model => model.UnitName, new { id = "unitName", @class = "form-control", placeholder = "пълно ме на мерната единицата" })
+                @Html.ValidationMessageFor(model => model.UnitName)
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="ingredientName" class="col-sm-5 control-label">Кратко име:</label>
+            <div class="col-sm-7">
+                @Html.Hidden("id", Model.UnitID)
+                @Html.TextBoxFor(model => model.UnitShortName, new { id = "unitShortName", @class = "form-control", placeholder = "кратко ме на мерната единицата" })
+                @Html.ValidationMessageFor(model => model.UnitShortName)
+            </div>
+        </div>
+        <div class="updateDeteleBtnContainer">
+            <input class="editBtn" type="submit" value="Промени" />
+        </div>
+    }
+    
+</section>
+

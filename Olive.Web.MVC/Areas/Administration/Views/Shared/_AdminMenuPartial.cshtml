@@ -1,0 +1,15 @@
+﻿ <nav class="menuContainer">
+    <h2>Администрация</h2>
+    <ul class="menu" >
+        <li class="menuItem">@Html.ActionLink("Начало", "Index", "Home", null,new { Area = "Administration" })</li> |
+        <li class="menuItem">@Html.ActionLink("Нова рецепта", "Create", "AdminRecipes", null, new { Area = "Administration" })</li> |
+        <li class="menuItem">@Html.ActionLink("Рецепти", "Index", "AdminRecipes",null, new { Area = "Administration" })</li> |
+        <li class="menuItem">@Html.ActionLink("Категории", "Index", "Categories",null, new { Area = "Administration" })</li> |
+        <li class="menuItem">@Html.ActionLink("Съставки", "Index", "Ingredients", null, new { Area = "Administration" })</li> |
+        <li class="menuItem">@Html.ActionLink("Мерни единици", "Index", "Units", null, new { Area = "Administration" })</li> |
+        <li class="menuItem">@Html.ActionLink("Източници", "Index", "Sources",null, new { Area = "Administration" })</li>     
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</nav>

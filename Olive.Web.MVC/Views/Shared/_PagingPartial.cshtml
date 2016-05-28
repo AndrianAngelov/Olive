@@ -1,0 +1,62 @@
+﻿@*@model Olive.Web.MVC.ViewModels.RecipesListViewModel  *@
+@{
+    //ViewBag.Title = "_PagingPartial";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int pages = int.Parse(ViewData["Pages"].ToString());
+}
+
+@*first page btns*@
+<div class="round-button">
+    <div class="round-button-circle">
+        <a class="pagingButton"><<</a>
+    </div>
+</div>
+
+@*prev page btns*@
+@Html.Hidden("currentPage", 1)
+@Html.Hidden("numberOfPages", pages)
+@if (ViewData["CurrentCategoryID"]!=null)
+{
+   @Html.Hidden("currentCategoryID", ViewData["CurrentCategoryID"].ToString()) 
+}
+
+<div class="round-button">
+    <div class="round-button-circle">
+        <a class="pagingButton"><</a>
+    </div>
+</div>
+
+@*pages btns*@
+@for (int i = 1; i <= pages; i++)
+{
+    <div class="round-button">
+        <div class="round-button-circle">
+            @if (ViewData["AnchorCssClass"] == null)
+            {
+                <a class="pagingButton ">@i</a>
+            }
+            else
+            {
+               <a class="@(ViewData["AnchorCssClass"].ToString())">@i</a>     
+            } 
+            
+        </div>
+    </div>
+}
+
+@*next page btn*@
+<div class="round-button">
+    <div class="round-button-circle">
+        <a class="pagingButton">></a>
+    </div>
+</div>
+
+@*last page btn*@
+<div class="round-button">
+    <div class="round-button-circle">
+        <a class="pagingButton">>></a>
+    </div>
+</div>
+

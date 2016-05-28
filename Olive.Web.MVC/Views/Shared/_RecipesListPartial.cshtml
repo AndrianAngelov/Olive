@@ -1,0 +1,9 @@
+﻿@model Olive.Web.MVC.ViewModels.RecipesListViewModel  
+           
+<h3 class="recipesListTitle"> @(Model.ListTitle.Replace("Olive-", ""))</h3>
+<article id="recipesInnerContainer" class="recipesInnerContainer">
+    @Html.Partial("_RecipesListViewPartial", Model.Recipes)
+</article>
+<footer>
+    @Html.Partial("_RecipesListPagingPartial", Model)
+</footer>

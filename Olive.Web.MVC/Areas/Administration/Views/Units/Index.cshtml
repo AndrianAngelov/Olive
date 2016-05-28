@@ -1,0 +1,109 @@
+﻿@model Olive.Web.MVC.Areas.Administration.ViewModels.UnitsIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administration/Views/Shared/_AdministrationLayout.cshtml";
+}
+
+<h2>Мерни единици</h2>
+@if (false)
+{
+    <script src="../../../../Content/JS/External/jquery-2.1.0-vsdoc.js" type="text/javascript"></script>
+    <script src="../../Content/JS/AdminCRUDAjax.js" type="text/javascript"></script>    
+}
+
+<section id="newUnitFormContainer" class="administrationCommonFormContainer">
+    @using (Ajax.BeginForm("Create", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.InsertAfter,
+        UpdateTargetId = "unitsTableBody",
+        OnFailure = "unitPostFailure",
+        OnSuccess = "successInsertUnitAjax"
+    }, new { id = "newUnitForm", @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        <h3>Добави мерна единица</h3>
+        <div class="form-group ">
+            <label for="unitName" class="col-sm-3 control-label">Пълно име:</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.NewUnit.UnitName, new { id = "unitName", @class = "form-control", placeholder = "Пълно име на съставката" })
+                @Html.ValidationMessageFor(model => model.NewUnit.UnitName)
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="unitShortName" class="col-sm-3 control-label">Съкратено име:</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.NewUnit.UnitShortName, new { id = "unitShortName", @class = "form-control", placeholder = "Съкратено име на съставката" })
+                @Html.ValidationMessageFor(model => model.NewUnit.UnitShortName)
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <input class="createBtn" type="submit" value="Добави" />
+        </div>
+    }
+    
+</section>
+
+<section id="unitsTableContainer" class="administrationCommonTableContainer">
+
+    <table id="unitsTable" class="table table-hover">
+        <tbody id="unitsTableBody">
+            <tr>
+                <th class="tableHeaderText">
+                    Пълно име
+                </th>
+                <th class="tableHeaderText">
+                   Съкратено име
+                </th>
+            </tr>
+
+            @foreach (var unit in Model.AllUnits)
+            {
+                @Html.Partial("_UnitPartial", unit)
+            }
+        </tbody>
+    </table>
+</section>
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        AdminAjax.LoadUnitInEditDialog("Промени мерната единица");
+        AdminAjax.LoadUnitInDeleteDialog("Изтрий мерната единица");
+    });
+    function unitPostFailure() {
+        alert("Error");
+    };
+
+    function successInsertUnitAjax() {
+        $('#unitName').val("");
+        $('#unitShortName').val("");
+        AdminAjax.LoadUnitInEditDialog("Промени мерната единица");
+        AdminAjax.LoadUnitInDeleteDialog("Изтрий мерната единица");
+        AdminAjax.ShowMessageDialog("Успешно добавихте мерна единица");
+    };
+    function successUpdateUnitAjax(data) {
+        AdminAjax.LoadUnitInEditDialog("Промени мерната единица");
+        AdminAjax.LoadUnitInDeleteDialog("Изтрий мерната единица");
+        $('#adminDialog').empty();
+        $('#adminDialog').dialog("close");
+
+        var rowID = "tr#" + data.unitID;
+        $(rowID).children(".modelData.unitName").text(data.unitName);
+        $(rowID).children(".modelData.unitShortName").text(data.unitShortName);
+        console.log($(rowID));
+
+        AdminAjax.ShowMessageDialog("Успешно променихте мерна единица");
+    };
+
+    function successDeleteUnit(id) {
+        var deletedId = "#" + id;
+        $('#adminDialog').empty();
+        $('#adminDialog').dialog("close");
+        $(deletedId).remove();
+        AdminAjax.ShowMessageDialog("Успешно изтрихте мерна единица");
+    }
+
+</script>
+}

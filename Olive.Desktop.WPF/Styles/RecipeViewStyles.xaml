@@ -1,0 +1,191 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--=====================================================================-->
+    <!--                         Borders                                     -->
+    <!--=====================================================================-->
+    <Style x:Key="BorderRecipeTitleStyle" TargetType="Border">
+        <Setter Property="Padding"  Value="5" />
+        <Setter Property="Background" Value="{StaticResource SolidBrushDarkGreen}"/>
+        <!--<Setter Property="HorizontalAlignment" Value="Center"/>-->
+        <!--<Setter Property="Background" Value="{StaticResource SolidBrushLightBlack}"/>-->
+        <!--<Setter Property="Background" Value="{StaticResource SolidBrushDarkGray}"/>-->
+    </Style>
+
+
+    <Style x:Key="BorderRecipeHeaderStyle" TargetType="Border">
+        <Setter Property="Padding"  Value="10" />
+        <Setter Property="Background" Value="{StaticResource SolidBrushLightGreen}"/>
+        <!--<Setter Property="HorizontalAlignment" Value="Center"/>-->
+    </Style>
+    
+    <Style x:Key="BorderImageRecipeStyle" TargetType="Border">
+        <Setter Property="Padding"  Value="5" />
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Height"  Value="150" />
+        <Setter Property="Width"  Value="150" />
+        
+    </Style>
+
+    <Style x:Key="BorderRecipeDescriptionStyle" TargetType="Border">
+        <Setter Property="Padding"  Value="2" />
+        <Setter Property="Background" Value="{StaticResource SolidBrushDarkGreen}"/>
+    </Style>
+
+    <!--<Style x:Key="BorderRecipeSectionsStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource SolidBrushLightLightGray}"/>
+        <Setter Property="CornerRadius"  Value="2" />
+        <Setter Property="Margin"  Value="0,2,0,0" />
+    </Style>-->
+    <!--=====================================================================-->
+    <!--                         TextBlocks                                  -->
+    <!--=====================================================================-->
+    <Style x:Key="TextBlocksRecipeStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <!--<Setter Property="TextAlignment" Value="Center"/>-->
+        <!--<Setter Property="Padding" Value="2"/>-->
+    </Style>
+    <Style x:Key="TextBlocksRecipeSectionNormalStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="TextBlocksRecipeSectionNumberStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{StaticResource SolidBrushDarkGray}"/>
+        
+    </Style>
+    
+    <Style x:Key="TextBlocksRecipeSectionTitleStyle" TargetType="TextBlock">
+        <Setter Property="Background" Value="{StaticResource SolidBrushDarkGreen}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,10,0,10"/>
+    </Style>
+    
+    <Style x:Key="TextBlocksRecipeSectionItemsHeaderStyle" TargetType="TextBlock">
+        
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <Style x:Key="TextBlocksRecipeViewSectionTitleStyle" TargetType="TextBlock">
+        <Setter Property="Background" Value="{StaticResource SolidBrushDarkGreen}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="3"/>
+    </Style>
+    
+    <Style x:Key="TextBlocksRecipeViewNormalStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="12"/>
+        <!--<Setter Property="VerticalAlignment" Value="Center"/>-->
+        <!--<Setter Property="TextAlignment" Value="Center"/>-->
+    </Style>
+    
+    <!--=====================================================================-->
+    <!--                         Labels                                      -->
+    <!--=====================================================================-->
+    <Style x:Key="LabelsRecipeTitleStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,5,0,5"/>
+    </Style>
+    <Style x:Key="LabelsRecipeHeaderStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="LabelsRecipeDescriptionStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="LabelsRecipeSectionTitleStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5,5,0,5"/>
+    </Style>
+    <!--=====================================================================-->
+    <!--                         TextBoxes                                   -->
+    <!--=====================================================================-->
+    <Style x:Key="TextBoxRecipeViewStyles" TargetType="TextBox">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Width" Value="200"/>
+    </Style>
+    
+    <!--=====================================================================-->
+    <!--                         StackPanels                                 -->
+    <!--=====================================================================-->
+    <Style x:Key="StackPanelRecipeBackgroundStyle" TargetType="StackPanel">
+        <Setter Property="Background" Value="{StaticResource SolidBrushDarkGray}"/>
+        <!--<Setter Property="Margin" Value="5"/>-->
+    </Style>
+
+    <Style x:Key="StackPanelRecipeTitleStyle" TargetType="StackPanel">
+        <!--<Setter Property="Background" Value="{StaticResource SolidBrush}"/>-->
+        <!--<Setter Property="Background" Value="{StaticResource SolidBrushDarkGreen}"/>-->
+        <!--<Setter Property="Margin" Value="5"/>-->
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+    
+    <Style x:Key="StackPanelRecipeHeaderStyle" TargetType="StackPanel">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="StackPanelRecipeHeaderInfoContainerStyle" TargetType="StackPanel">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="15,0,15,0"/>
+    </Style>
+
+    <Style x:Key="StackPanelRecipeHeaderItemsStyle" TargetType="StackPanel">
+        <Setter Property="Margin" Value="10,2,2,2"/>
+        <!--<Setter Property="Margin" Value="10"/>-->
+    </Style>
+
+    <Style x:Key="StackPanelRecipeDescriptionStyle" TargetType="StackPanel">
+        <!--<Setter Property="Margin" Value="2"/>-->
+    </Style>
+
+    <Style x:Key="StackPanelRecipeSectionItemHeaderStyle" TargetType="StackPanel">
+        <Setter Property="Background" Value="{StaticResource SolidBrushDarkBrown}"/>
+        <!--<Setter Property="Margin" Value="0,0,0,5"/>-->
+    </Style>
+
+    <!--<Style x:Key="StackPanelRecipeSectionItemsStyle" TargetType="StackPanel">
+        <Setter Property="Margin" Value="2"/>
+    </Style>-->
+
+    <Style x:Key="StackPanelRecipeViewHeaderItemsStyle" TargetType="StackPanel">
+        <Setter Property="Margin" Value="6"/>
+    </Style>
+
+
+</ResourceDictionary>

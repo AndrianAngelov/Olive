@@ -1,0 +1,34 @@
+﻿@model Olive.Data.RecipeItems_Ingredients
+
+@{
+    var unitsList = ViewBag.UnitsList as List<Olive.Web.MVC.Data.Unit>;
+    var ingredientsList = ViewBag.IngredientsList as List<Olive.Web.MVC.Data.Ingredient>;
+}
+
+<li class="ingredientItemContainer">
+    <ul>
+        <li>
+            <span>@Html.TextBoxFor(model => model.Quantity, new { @class = "form-control ingredientQuantityTextBox", placeholder = "Заглавие на секцията" })</span>
+            @Html.ValidationMessageFor(model => model.Quantity)
+          
+            @if (Model.Unit.UnitID!=0)
+            {
+                <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.Unit.UnitID, new SelectList(unitsList, "UnitID", "UnitShortName", Model.Unit.UnitID), "--- Избери единици ---", new { @class = "adminRecipeIngredientsDropDown unitsDD" })</span>
+            }
+            else
+            {
+                <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.Unit.UnitID, new SelectList(unitsList, "UnitID", "UnitShortName"), "--- Избери единици ---", new {@class = "adminRecipeIngredientsDropDown unitsDD" })</span>   
+            }
+            @if (Model.Ingredient.IngredientID!=0)
+            {
+                <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.Ingredient.IngredientID, new SelectList(ingredientsList, "IngredientID", "Name", Model.Ingredient.IngredientID), "--- Избери съставка ---", new { @class = "adminRecipeIngredientsDropDown ingredientsDD" })</span>
+            }
+            else
+            {
+                <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.Ingredient.IngredientID, new SelectList(ingredientsList, "IngredientID", "Name"), "--- Избери съставка ---", new { @class = "adminRecipeIngredientsDropDown ingredientsDD" })</span>
+            }
+           
+        </li>
+    </ul>
+    <a  class="deleteRecipeItemIngredient normalRedBtn deleteRecipeItemIngredientsStepBtns">Изтриий</a>
+</li>

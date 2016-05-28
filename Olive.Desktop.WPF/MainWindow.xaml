@@ -1,0 +1,149 @@
+﻿<Window x:Class="Olive.Desktop.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:Converters="clr-namespace:Olive.Desktop.WPF.Converters"
+        xmlns:Views="clr-namespace:Olive.Desktop.WPF.Views"
+        xmlns:ViewModels="clr-namespace:Olive.Desktop.WPF.ViewModels"
+        Title="Olive" Height="600" Width="900" Icon="OliveIcon.ico">
+    <Window.DataContext>
+        <ViewModels:AppViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type ViewModels:RecipesListViewModel}">
+            <Views:RecipesListView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:RecipeViewModel }">
+            <Views:RecipeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:AdministrationViewModel}">
+            <Views:AdministrationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:HomeViewModel}">
+            <Views:HomeView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:CategoriesListViewModel}">
+            <Views:CategoriesListView/>
+        </DataTemplate>
+
+        <BitmapImage x:Key="HeaderBackground" UriSource="Resources/background.png" />
+        <BitmapImage x:Key="SideBarBackground" UriSource="Resources/olive_twig.png" />
+        <BitmapImage x:Key="TableCoverSideBarBackground" UriSource="Resources/tableCoverPattern.jpg" />
+        <Converters:DateConverter x:Key="dateConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!--=====================================================================-->
+        <!--                             HEADER                                  -->
+        <!--=====================================================================-->
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="{StaticResource HeaderBackground}" 
+                                TileMode="Tile" 
+                                Viewport="0,0,0.1,1"/>
+            </Grid.Background>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="66"/>
+                <RowDefinition Height="2"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition  Width="700"/>
+                <ColumnDefinition  />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Background="#404040"/>
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Background="#404040"/>
+            <StackPanel Grid.Column="0" Grid.RowSpan="3"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Center" 
+                        Background="{StaticResource SolidBrushDarkGreen}">
+                <Image Source="Resources/olive_logo_v4.jpg" Stretch="Fill" Margin="0,10,0,0"/>
+            </StackPanel  >
+            
+            <StackPanel Name="HeaderContainer" Grid.Row="1" Grid.Column="1" 
+                        Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <Button Name="ButtonHome" 
+                        Content="Начало"
+                        Style="{StaticResource ButtonMenuStyle}"
+                        Command="{Binding Path=DataContext.GoHomeCommand, 
+                        RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+
+                <Button Name="ButtonNewRecipe" Content="Нова рецепта"
+                        Style="{StaticResource ButtonMenuStyle}"
+                        Command="{Binding Path=DataContext.NewRecipeCommand, 
+                        RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                </Button>
+
+                <Button Name="ButtonAdministration" 
+                        Content="Администрация"
+                        Style="{StaticResource ButtonMenuStyle}"
+                        Command="{Binding Path=DataContext.ChangeViewModel, 
+                        RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        CommandParameter="{Binding AdministrationVM}">
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2" Style="{StaticResource StackPanelDateTimeNowStyle}">
+                <TextBlock Text="{Binding Source={x:Static System:DateTime.Today},
+                                            ConverterCulture={x:Static System:Globalization.CultureInfo.CurrentCulture},  
+                                            StringFormat='{}{0:dd MMMM , yyyy}'}"
+                                            Style="{StaticResource TextBlockDateTimeNowStyle}"/>
+                <TextBlock Text="{Binding Source={x:Static System:DateTime.Now},
+                                            ConverterCulture={x:Static System:Globalization.CultureInfo.CurrentCulture},  
+                                            StringFormat='{}{0:dddd , HH:mm}'}"
+                                            Style="{StaticResource TextBlockDateTimeNowStyle}"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!--=====================================================================-->
+        <!--                             SIDEBAR                                  -->
+        <!--=====================================================================-->
+        <Border Grid.Row="1"  Grid.Column="0" Padding="2,0,2,2">
+            <Border.Background>
+                <SolidColorBrush Color="#404040"/>
+            </Border.Background>
+            <StackPanel HorizontalAlignment="Stretch" >
+                <StackPanel.Background>
+                    <SolidColorBrush Color="{StaticResource ColorDarkGray}"/>
+                </StackPanel.Background>
+                <Border Padding="10,10,10,10">
+                    <StackPanel>
+                        <Separator Background="White"/>
+                        <TextBlock Text="Категории" 
+                           FontSize="16" 
+                           Foreground="White" 
+                           FontWeight="Bold" 
+                           TextAlignment="Center"/>
+                        <Separator Background="White"/>
+                    </StackPanel>
+                </Border>
+                <ContentControl Name="CategoriesMenuContent"  
+                            Grid.Row="1" Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            Content="{Binding CategoriesListVM}">
+                </ContentControl>
+            </StackPanel>
+        </Border>
+
+        <!--=====================================================================-->
+        <!--                             Content Container                       -->
+        <!--=====================================================================-->
+        <ContentControl Name="MainContent"  
+                        Grid.Row="1" Grid.Column="1"
+                        Content="{Binding CurrentViewModel}"/>
+    </Grid>
+</Window>

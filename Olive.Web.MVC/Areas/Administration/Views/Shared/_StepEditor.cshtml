@@ -1,0 +1,15 @@
+﻿@model Olive.Data.Step
+@using Olive.Web.MVC.Helpers
+
+@{
+    var recipeItemID = "forReplace";
+    if (ViewData["RecipeItemID"] != null)
+    {
+        recipeItemID = (string)ViewData["RecipeItemID"];
+    }
+}
+@using (Html.BeginCollectionItem(recipeItemID+".steps"))
+{
+    @Html.EditorFor(m => m)
+}
+

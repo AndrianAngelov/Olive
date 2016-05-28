@@ -1,0 +1,60 @@
+﻿@*@model Olive.Web.MVC.Areas.Administration.ViewModels.AdminRecipeViewModel*@
+@model Olive.Data.RecipeItem
+ 
+@*@for (int i = 0; i < Model.Count; i++)
+{*@
+           
+<h3>Секция </h3>
+@*<article class="recipeItemContainer"> *@
+    <section class="recipeItemNameContainer">
+        <span>@Html.LabelFor(model => model.RecipeItemName, "Заглавие: ")</span>
+        <span>@Html.TextBoxFor(model => model.RecipeItemName, new { @class = "form-control recipeItemTextBox", placeholder = "Заглавие на секцията" })</span>
+        @Html.ValidationMessageFor(model => model.RecipeItemName)
+    </section>
+
+    <section class="ingredientsContainer">
+        <h4 class="ingredientsStepsContainersTitle ">Съставки: </h4>
+        <ul class="ingredients">
+            @foreach (var ingredient in Model.RecipeItems_Ingredients)
+            {
+                Html.RenderPartial("_IngredientEditor", ingredient);
+            }
+        </ul>
+        <div class="addRecipeItemIngredientBtnContainer addRecipeItemIngredientsStepBtnsContainer">
+            @Html.ActionLink("Добави нова съставка", "AddIngredient", null, new { @class = "normalGreenBtn addRecipeItemIngredient" }) 
+        </div> 
+    </section>      
+    <span class="ingredientsStepsSeparator"></span>  
+    <section class="stepsContainer">
+        <h4 class="ingredientsStepsContainersTitle">Начин на приготвяне: </h4>
+        <ul class="steps">
+            @foreach (var step in Model.Steps)
+            {
+                Html.RenderPartial("_StepEditor", step);
+            }
+        </ul>
+        <div class="addRecipeItemStepBtnContainer addRecipeItemIngredientsStepBtnsContainer">
+            @Html.ActionLink("Добави нова стъпка", "AddStep", null, new { @class = "normalGreenBtn addRecipeItemStep" }) 
+        </div> 
+        
+    </section>
+    <div class="deleteSectionBtnContainer">
+        <a  class="deleteSection normalRedBtn">Изтриий секцията</a>
+    </div>
+@*</article>*@
+@*}   *@
+@section Scripts{
+<script type="text/javascript">
+    $("a.deleteSection").on("click", function () {
+//        $(this).parents("article.recipeItemContainer:first").remove();
+        alert("click");
+        return false;
+    });
+</script>
+}
+
+
+
+
+
+

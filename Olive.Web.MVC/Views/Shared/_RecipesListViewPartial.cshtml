@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Olive.Web.MVC.ViewModels.RecipeViewModel>
+@*@model Olive.Web.MVC.ViewModels.RecipesListViewModel  *@    
+@{
+    ViewBag.Title = "_RecipesListViewPartial";
+    
+}
+
+<ul class="da-thumbs" >
+    @foreach (var recipe in Model)
+    {
+        <li class="recipeItemContainer">
+           @* <a href="@Url.Action("Details", "Recipes", new { recipeID = recipe.RecipeID, title = recipe.Title.Replace(' ', '-') })">*@
+            <a href="@Url.Action("RecipeHitCounter", "Recipes", new { recipeID = recipe.RecipeID})">
+                <img class="recipeItemImage" src="@(recipe.ImageURL)" alt="@Path.GetFileName(recipe.ImageURL)"/> 
+				<div class="recipeItemTitleTextContainer">
+                    <p class="recipeItemTitleText">@(recipe.Title)</p>
+                </div>
+                <article class="da-animate da-slideFromRight recipeItemInnerContainer" style="display: block;">
+                    <div class="hoverContainer">
+                        @*<span class"recipeItemTitle">@(recipe.Title)</span>*@
+                        <div class="recipeItemTitleTextContainer hoverRecipeItemTitleTextContainer">
+                            <p class="recipeItemTitleText">@(recipe.Title)</p>
+                        </div>
+                        <ul class="hoverRecipeItemInfoContainer">
+                            <li>@(recipe.Category)
+                            @if(recipe.ParentCategory!=null)
+	                        {
+		                        @:, 
+	                        } 
+                                @(recipe.ParentCategory)
+                             </li>
+                            <li><i class="fa fa-eye fa-2x"></i> @(recipe.NumberOfHits)</li>
+                           @* <li><i class="fa fa-users fa-2x"></i>@(recipe.NumberOfLikes)</li>*@
+                            <li>@(recipe.NumberOfLikes)</li>
+                            <li><i class="fa fa-clock-o fa-2x"></i>@Helpers.AdditionPrepCookTime(recipe.PreparationTime, recipe.CookingTime)</li>
+                            <li><i class="fa fa-users fa-2x"></i>@(recipe.Serves)</li>
+                            @*<li><span class="glyphicon glyphicon-user"></span>@(recipe.Serves)</li>*@
+                            
+                            <li><strong>Публикувана:</strong>@(recipe.Date.ToShortDateString())</li>
+                        </ul>
+                    </div>
+				</article>
+            </a>
+		</li>
+    }
+</ul>
+

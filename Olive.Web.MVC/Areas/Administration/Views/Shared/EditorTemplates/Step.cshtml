@@ -1,0 +1,8 @@
+﻿@model Olive.Data.Step
+
+<li>
+    @*<span>стъпка @stepIndex </span>*@
+    @Html.TextAreaFor(model => model.Description, new { cols=40,rows=3 })
+   @* @Html.ActionLink("Изтрий", "RemoveStep", "AdminRecipes", new { area = "" }, new { @class = "normalRedBtn" })*@
+    <a  class="deleteRecipeItemStep normalRedBtn deleteRecipeItemIngredientsStepBtns">Изтриий</a>
+</li>

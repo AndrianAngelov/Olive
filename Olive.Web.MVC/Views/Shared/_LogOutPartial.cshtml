@@ -1,0 +1,4 @@
+﻿<section id="loggedUserContainer" class="col-xs-2 col-xs-offset-10">
+    <p>Здравей  @User.Identity.Name</p>
+    @Html.ActionLink("Излез", "LogOff", "Account", new { area = "" }, new { @class = "normalRedBtn" })
+</section>

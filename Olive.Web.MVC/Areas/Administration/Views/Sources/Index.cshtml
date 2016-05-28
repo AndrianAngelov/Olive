@@ -1,0 +1,101 @@
+﻿@model Olive.Web.MVC.Areas.Administration.ViewModels.SourcesIndexViewModel
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Areas/Administration/Views/Shared/_AdministrationLayout.cshtml";
+}
+    <h2>Източници</h2>
+    @if (false)
+    {
+        <script src="../../../../Content/JS/External/jquery-2.1.0-vsdoc.js" type="text/javascript"></script>
+        <script src="../../Content/JS/AdminCRUDAjax.js" type="text/javascript"></script>    
+    }
+<script type="text/javascript">
+    
+</script>
+<section id="newSourceFormContainer" class="administrationCommonFormContainer">
+    @using (Ajax.BeginForm("Create", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.InsertAfter,
+        UpdateTargetId = "sourcesTableBody",
+        OnFailure = "sourcePostFailure",
+        OnSuccess = "successInsertAjax"
+    }, new { id = "newSourceForm", @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group ">
+            <h3>Добави източник</h3>
+            <label for="sourceName" class="col-sm-2 control-label">Име:</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.NewSource.Name, new { id = "sourceName", @class = "form-control", placeholder = "Име на източника" })
+                @Html.ValidationMessageFor(model => model.NewSource.Name)
+            </div>
+            <div class="col-sm-2">
+                <input class="createBtn" type="submit" value="Добави" />
+            </div>
+        </div>
+    }
+    
+</section>
+
+<section id="sourcesTableContainer" class="administrationCommonTableContainer">
+
+    <table id="sourcesTable" class="table table-hover">
+        <tbody id="sourcesTableBody">
+            <tr>
+                <th class="tableHeaderText">
+                    Източник
+                </th>
+            </tr>
+
+            @foreach (var source in Model.AllSources)
+            {
+                @Html.Partial("_SourcePartial", source)
+            }
+        </tbody>
+    </table>
+</section>
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        AdminAjax.LoadSouceInEditDialog("Промени източникa");
+        AdminAjax.LoadSouceInDeleteDialog("Изтрий източника");
+    });
+    function sourcePostFailure() {
+        alert("Error");
+    };
+
+    function successInsertAjax() {
+        $('#sourceName').val("");
+        AdminAjax.LoadSouceInEditDialog("Промени източникa");
+        AdminAjax.LoadSouceInDeleteDialog("Изтрий източника");
+
+        AdminAjax.ShowMessageDialog("Успешно добавихте нов източник");
+    };
+    function successUpdateAjax(data) {
+        AdminAjax.LoadSouceInEditDialog("Промени източникa");
+        AdminAjax.LoadSouceInDeleteDialog("Изтрий източника");
+        $('#adminDialog').empty();
+        $('#adminDialog').dialog("close");
+       
+        var rowID = "tr#" + data.sourceID;
+        $(rowID).children(".modelData").text(data.sourceName);
+        console.log($(rowID));
+
+        AdminAjax.ShowMessageDialog("Успешно променихте низточник");
+    };
+
+    function successDeleteSource(id) {
+        //alert(id);
+        var deletedId = "#" + id;
+        $('#adminDialog').empty();
+        $('#adminDialog').dialog("close");
+        $(deletedId).remove();
+
+        AdminAjax.ShowMessageDialog("Успешно изтрихте низточник");
+    }
+
+</script>
+}

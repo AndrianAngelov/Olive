@@ -1,0 +1,97 @@
+﻿@model Olive.Web.MVC.Areas.Administration.ViewModels.IngredientsIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administration/Views/Shared/_AdministrationLayout.cshtml";
+}
+
+<h2>Съставки</h2>
+@if (false)
+{
+    <script src="../../../../Content/JS/External/jquery-2.1.0-vsdoc.js" type="text/javascript"></script>
+    <script src="../../Content/JS/AdminCRUDAjax.js" type="text/javascript"></script>    
+}
+
+<section id="newIngredientFormContainer" class="administrationCommonFormContainer">
+    @using (Ajax.BeginForm("Create", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.InsertAfter,
+        UpdateTargetId = "ingredientsTableBody",
+        OnFailure = "ingredientPostFailure",
+        OnSuccess = "successInsertIngredientAjax"
+    }, new { id = "newIngredientForm", @class = "form-horizontal" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group ">
+            <h3>Добави съставка</h3>
+            <label for="ingredientName" class="col-sm-2 control-label">Име:</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.NewIngredient.Name, new { id = "ingredientName", @class = "form-control", placeholder = "Име на съставката" })
+                @Html.ValidationMessageFor(model => model.NewIngredient.Name)
+            </div>
+            <div class="col-sm-2">
+                <input class="createBtn" type="submit" value="Добави" />
+            </div>
+        </div>
+    }
+    
+</section>
+
+<section id="ingredientsTableContainer" class="administrationCommonTableContainer">
+
+    <table id="ingredientsTable" class="table table-hover">
+        <tbody id="ingredientsTableBody">
+            <tr>
+                <th class="tableHeaderText">
+                    Съставка
+                </th>
+            </tr>
+
+            @foreach (var ingredient in Model.AllIngredients)
+            {
+                @Html.Partial("_IngredientPartial", ingredient)
+            }
+        </tbody>
+    </table>
+</section>
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        AdminAjax.LoadIngredientInEditDialog("Промени съставката");
+        AdminAjax.LoadIngredientInDeleteDialog("Изтрий съставката");
+    });
+    function ingredientPostFailure() {
+        alert("Error");
+    };
+
+    function successInsertIngredientAjax() {
+        $('#ingredientName').val("");
+
+        AdminAjax.LoadIngredientInEditDialog("Промени съставката");
+        AdminAjax.LoadIngredientInDeleteDialog("Изтрий съставката");
+
+        AdminAjax.ShowMessageDialog("Успешно добавихте нова съставка");
+    };
+    function successUpdateIngredientAjax(data) {
+        AdminAjax.LoadIngredientInEditDialog("Промени съставката");
+        AdminAjax.LoadIngredientInDeleteDialog("Изтрий съставката");
+        $('#adminDialog').empty();
+        $('#adminDialog').dialog("close");
+
+        var rowID = "tr#" + data.ingredientID;
+        $(rowID).children(".modelData").text(data.ingredientName);
+        console.log($(rowID));
+
+        AdminAjax.ShowMessageDialog("Успешно променихте съставка");
+    };
+
+    function successDeleteIngredient(id) {
+        var deletedId = "#" + id;
+        $('#adminDialog').empty();
+        $('#adminDialog').dialog("close");
+        $(deletedId).remove();
+        AdminAjax.ShowMessageDialog("Успешно изтрихте съставка");
+    }
+</script>

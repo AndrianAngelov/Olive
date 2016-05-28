@@ -1,0 +1,43 @@
+﻿
+@model IEnumerable<Olive.Data.Recipe>
+@{
+    ViewBag.Title = "Olive-Всички рецепти";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Всички рецепти</h2>
+
+<section class="recipesContainer dottedBorder">
+    <h3 class="recipesListTitle">Всички рецепти <img class="loaderImage" src="../../Content/Images/spinner.gif" alt="loader" /></h3>
+    <ul class="da-thumbs" >
+        @foreach (var recipe in Model)
+        {
+            <li class="recipeItemContainer">
+                <a href="@Url.Action("Details","Recipes", new { recipeID = recipe.RecipeID, title = recipe.Title.Replace(' ', '-') })">
+                    <img class="recipeItemImage" src="@( "http://res.cloudinary.com/hqz5ohs1v/image/upload/" + recipe.ImageVersion + "/" + recipe.ImageURL)" alt="@(recipe.ImageURL)"/>
+				    
+                    <div class="recipesRecipeTitleContainer">
+                        <p class="recipesRecipeTitleText">@(recipe.Title)</p>
+                    </div>
+                    <article class="da-animate da-slideFromRight recipeItemInnerContainer" style="display: block;">
+					    <span>@(recipe.Title)</span>
+                        <p >@(recipe.Date)</p>
+				    </article>
+                </a>
+		    </li>
+        }
+    </ul>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var loaderContainer = $('.loaderImageConatiner');
+        var loader = $('.loaderImage');
+        var recipeItems = $('.recipeItemContainer');
+
+        loader.css("visibility", "hidden");
+        recipeItems.click(function () {
+            loader.css("visibility", "visible");
+
+        });
+    });
+</script>

@@ -1,0 +1,96 @@
+﻿@model Olive.Data.Recipe
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Administration/Views/Shared/_AdministrationLayout.cshtml";
+}
+
+<h2>Изтрий рецепта</h2>
+
+<article id="currentRecipe" class="adminDeleteRecipeInfo">
+    <header >
+        <ul>
+            <li><h2>@(Model.Title)</h2></li>
+        </ul>
+    </header>
+    <section id="recipeMainInfoContainer">
+        <article id="imgContainer">
+             <img src="@(Model.ImageURL)" alt="@(Path.GetFileNameWithoutExtension(Model.ImageURL))"/> 
+             @Html.HiddenFor(model => model.ImageURL)
+        </article>
+        <article id="mainInfo">
+            <table class="recipeForDelete">
+              <tbody>
+                <tr>
+                  <td class="textAlignmentRight"><strong>категория: </strong></td>
+                  <td>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <p>
+                        @(category.Name.ToLower()) 
+                        @if (category.Category1!=null)
+	                    {
+		                    @:,@(category.Category1.Name.ToLower()) 
+	                    }
+                        </p>
+                    }
+                  </td>
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>време за подготовка: </td>
+                     @Helpers.PreparationCookTime("Подготовка", (int)Model.PreparationTime, "td")
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>време за готвене: </td>
+                    @Helpers.PreparationCookTime("Готвене", (int)Model.CookingTime, "td")
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>порции: </td>
+                    <td>@(Model.Serves)</td>
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>източник: </td>
+                    <td><a href="#">@(Model.Source.Name)</a> </td>
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>рейтинг: </td>
+                    <td>@(Model.Rating)</td>
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>публикувана на: </td>
+                    <td>@(((DateTime)Model.Date).ToShortDateString())</td>
+                </tr>
+              </tbody>
+            </table>
+        </article>
+        <article id="recipeDescription">
+            <p>@Olive.Web.MVC.Helpers.RtfHelper.PlainText(Model.Description)</p>
+        </article>
+    </section>
+</article>
+@using (Html.BeginForm()) {
+    
+    <div class="deleteRecipeBtnsContainer">
+        <h3>Сигурни ли сте , че искате да изтриете тази рецепта?</h3>
+        <input class="normalRedBtn" type="submit" value="Изтрий" /> 
+        @Html.ActionLink("Преустанови", "Index",null,new{@class="normalGreenBtn"})
+    </div>
+}

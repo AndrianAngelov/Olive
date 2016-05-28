@@ -1,0 +1,503 @@
+﻿/* File Created: октомври 13, 2014 */
+/*
+	Brown Dark #887C64
+    Brown Light #ACA393
+
+    Green Light #DCE1CB rgb:220,225,203
+	Green Middle #86b695
+	Green Dark #81987c
+	Green DarkDark #2e4c24
+
+    Beige #E6E7DB
+   
+    Red Light #E87162
+    Red Dark #E24A37
+
+    Gray LightLight #e9e9e9
+    Gray Light #B4B2AE
+	Gray Dark #5F5E5D
+	Gray DarkDark #5e5d5c
+
+    Yellow #FCD920
+    KillBlue #3CB5B5
+    LightBlack #404040
+	*/
+/*#region Administration Layout*/
+#caContainer.authenticated {
+	left:22%;
+}
+.darkHeaderBottomBorder {
+	background-size: 23px;
+	background-image: url('../Images/header_background_DarkGraySolid_bottomBorder.png');
+	height: 1em;
+}
+.administrationContainer {
+	color:#5F5E5D;
+	background:#5e5d5c;
+	font-family: 'Dosis', sans-serif;
+	font-size: 1em;
+	padding: 0 1em 0 1em;
+	margin: 0;
+	min-height:22em;
+}
+	.administrationBody {
+		background-color: #e9e9e9;
+		/*background-color: white;*/
+		font-size: 0.7em;
+		font-weight: bold;
+	}
+		.administrationBody h2 {
+			background-color: #E6E7DB;
+			font-size: 1.6em;
+			font-weight: bold;
+			padding: 0.4em 0 0.4em 0;
+		} 
+		.table {
+			margin-bottom: 0;
+		}
+			.table tbody tr:last-child td{
+				padding-bottom: 1em;
+			}
+	
+
+/*#endregion*/
+
+/*#region Administration menu */
+.administrationContainer nav {
+		color:#fff;
+		background-color: #5e5d5c;
+		text-align: center;
+	}
+		.administrationContainer nav h2{
+			color:#fff;
+			/*background: linear-gradient(to bottom, rgba(64,64,64,1) 0%,rgba(95,94,93,1) 50%,rgba(64,64,64,1) 100%); */
+			
+			font-size:1.5em;
+			padding: 1em 0.2em 0.5em 0.2em;
+			font-weight: bold;
+			/*border-top:solid #5F5E5D 1px;*/
+			border-bottom:solid #B4B2AE 1px;
+		}
+		
+		.administrationContainer nav ul.menu{
+			/*width: 60%;
+			display:inline-block;*/
+			vertical-align:top;
+			padding-top: 0.5em;
+			list-style-type: none;
+			background: linear-gradient(to bottom, rgba(95,94,93,0.84) 0%,rgba(95,94,93,0.84) 50%,rgba(95,94,93,0.84) 100%);
+		}
+			.administrationContainer nav ul.menu hr{
+				/*margin:0.2em 0 0.2em 0;	*/
+			}
+			
+			.administrationContainer li.menuItem {
+				display:inline-block;
+			}
+				.administrationContainer li.menuItem a{
+					color:White;
+					font-size:0.85em;
+					font-weight: bold;
+				}
+				.administrationContainer li.menuItem a:hover{
+					color:#E87162;
+					font-weight: bold;
+					text-decoration: none;
+				}
+/*#endregion*/
+
+/*#region Administration Common Forms/Tabels */
+.adminFormContainers {
+	background-color: white;
+}
+/*Index form*/
+/*#indexSourceFormContainer {*/
+.administrationCommonFormContainer {
+	background-color: white;
+	padding: 1em 0 1em 0;
+}
+
+/*#region Common Forms */
+
+.administrationBody #newSourceFormContainer {
+	background-color: #fff;
+	padding-top: 0.5em;
+}
+	.administrationBody #newSourceFormContainer #newSourceForm,.administrationCommonFormContainer form{
+		display: inline-block;
+		vertical-align: top;
+		/*border:dotted #31b0d5 2px;*/
+	}
+		.administrationCommonFormContainer h3{
+			/*color:#31b0d5;*/
+			color:#81987c;
+			font-size: 1.2em;
+			font-weight: bold;
+			margin-bottom:0.5em;
+		}
+		.administrationCommonFormContainer label{
+			font-size: 1.2em;
+		}
+		.administrationCommonFormContainer input[type=submit]{
+			/*margin-top: 0.8em;*/
+			font-weight: bold;
+	
+		}
+			.form-control::-webkit-input-placeholder { /* WebKit browsers */
+				color:    #B4B2AE;
+				font-weight: normal;
+			}
+			.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+				color:    #B4B2AE;
+				font-weight: normal;
+				opacity:  1;
+			}
+			.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+				color:    #B4B2AE;
+				font-weight: normal;
+				opacity:  1;
+			}
+			.form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
+				color:    #B4B2AE;
+				font-weight: normal;
+			}
+
+/*#endregion*/
+
+/*#region Common Tables */
+
+.administrationBody #sourcesTableContainer {
+	
+}
+	.administrationCommonTableContainer table{
+		background-color: #fff;
+	}
+		.administrationCommonTableContainer th {
+			color:#E87162;
+			font-size: 1.3em;
+			font-weight: bold;
+			text-align: center;
+		}
+			.administrationCommonTableContainer input{
+				font-size: 1em;
+				font-weight: bold;
+				padding:0 0.3em 0 0.3em;
+			}
+
+/*#endregion*/
+
+/*#region Administration Edit Dialog Forms */
+
+#updateSourceForm {
+	
+}
+	.administrationEditDialogForm .form-group {
+		font-size: 0.9em;
+		display:inline-block;
+		margin:0;
+		text-align: center;
+		
+	}
+		.updateDeteleBtnContainer {
+			text-align: center;
+			padding: 0.4em 0 0.4em 0;
+			margin-top:0.4em;
+			border-top:dashed #5F5E5D 1px;
+		}
+			.updateDeteleBtnContainer input[type=submit]{
+				font-size: 0.9em;
+				padding: 0.25em;
+				margin:0;
+			}
+
+/*#endregion*/
+
+/*#endregion*/
+
+/*#region Recipes */
+
+/*#region RecipesIndex */
+
+.recipesTableContainer {
+	background-color: white;
+}
+	.recipesTableContainer {
+		
+	}
+	/*Index form*/
+	#recipesTable {
+		background-color: white;
+	}
+		#recipesTableBody {
+	
+		}
+			#recipesTableBody th {
+				color:#E87162;
+				font-size: 1.1em;
+				font-weight: bold;
+				text-align: center;
+			}
+				#recipesTableBody .recipeItemImage{
+					width: 5em;
+					height:5em;
+				}
+				#recipesTableBody a{
+					font-size: 1em;
+					font-weight: bold;
+					padding:0 0.3em 0 0.3em;
+					text-decoration: none;
+				}
+					#recipesTableBody a.deleteBtn {
+						margin-top:0.5em; 
+					}
+				#recipesTableBody a:first-child:hover {
+					color:#404040;
+				}
+				#recipesTableBody a:last-child:hover {
+					color:#fff;
+					
+				}
+
+/*#endregion*/
+
+/*#region Recipes_Create/Edit */
+#newRecipePageTitle {
+	border-bottom: solid #5e5d5c 1px;
+}
+	.adminRecipeHeaderContainer {
+		background-color:#E6E7DB;
+		margin: 0.5em;
+		padding: 1em;
+		border-top: dashed #5F5E5D 1px;
+		border-bottom: dashed #5F5E5D 1px;
+		text-align: center;  
+	}
+		.adminRecipeHeaderContainer ul li{
+			margin-bottom: 0.3em;
+		}
+		.adminRecipeHeaderContainer ul li span {
+			display:inline-block;
+		}
+		.adminRecipeImageUploadContainer {
+			width: 30%;
+			display:inline-block;
+			vertical-align: middle;
+			text-align: center;
+	
+		}
+			.adminRecipeImageUploadContainer img{
+				display: inline-block;
+				width: 20em;
+				height: 20em;
+			}
+			.adminRecipeImageUploadContainer input[type=file]{
+				display:inline-block;
+				padding: 0.4em;
+			}
+			
+		/*#region MainInfo */
+
+		.adminRecipeMainInfoContainer {
+			width: 69%;
+			display:inline-block;
+			vertical-align: middle;
+			text-align: left;
+			padding-left: 1em;
+			border-left: dashed #5F5E5D 1px;
+		}
+			.adminRecipeTitleContainer .recipeTitleTextBox{
+				width: 30em;
+			}
+			.adminRecipeDropDownContainer .adminRecipeDropDown{
+				font-weight: normal;
+				height: 2.5em;
+				border-radius:0.2em;
+			}
+			input[type=date]{
+				font-weight: normal;
+				height:2em;
+				border:solid #5F5E5D 0.08em;
+				border-radius:0.2em;
+			}
+			input[type=date]::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				display: none;
+			}
+
+/*#endregion*/
+
+	/*#region Section */
+
+	.adminRecipeSectionContainer {
+		
+	}
+		.adminRecipeSectionContainer span {
+			display:inline-block;
+		}
+			.recipeItemContainer {
+				background-color:#E6E7DB;
+				margin: 0.5em;
+				border-top: dashed #5F5E5D 1px;
+				border-bottom: dashed #5F5E5D 1px;
+				text-align: center; 	
+			}
+				.recipeItemNameContainer {
+					background-color: #86b695;
+					padding: 0.4em;
+				}
+					.recipeItemNameContainer input[type=text] {
+						width: 30em;
+					}
+				.ingredientsContainer {
+					/*background-color:#B4B2AE;*/
+					margin: 0.4em;
+					display: inline-block;
+					width: 55%;
+					vertical-align: top;
+				}
+					.ingredientsContainer ul li ul{
+						display:inline-block;
+					}
+						.ingredientsContainer ul.ingredients li.ingredientItemContainer{
+							border-bottom: dashed #404040 1px;
+							padding: 0.4em;
+						}
+							.ingredientsContainer ul.ingredients li.ingredientItemContainer .adminRecipeIngredientsDropDown {
+								font-weight: normal;
+								height: 2em;
+								border-radius:0.2em;
+							}
+					
+							.ingredientsContainer ul li ul li input[type=text]{
+								height: 2em;
+								width: 4em;
+							}
+				
+				.stepsContainer {
+					/*background-color:#B4B2AE;*/
+					margin: 0.4em;
+					display: inline-block;
+					width: 40%;
+					vertical-align: top;
+				}
+					h4.ingredientsStepsContainersTitle {
+						/*color:#fff;*/
+						/*background-color: #81987c;*/
+					}
+					.stepsContainer ul li {
+						/*display:inline-block;*/
+	
+					}
+						.stepsContainer ul li span{
+							vertical-align:middle;
+						}
+						.stepsContainer ul li textarea{
+							vertical-align:middle;
+						}
+						
+/*#region Buttons */
+
+.addSectionBtnContainer {
+	padding: 0.4em;
+}
+	.addSectionBtnContainer a{
+		font-size: 15px;
+		width: 100%;
+		
+	}
+.deleteSectionBtnContainer{
+	padding: 0.4em;
+	border-top:dashed #5F5E5D 1px;
+}
+	.deleteSectionBtnContainer a{
+		width: 100%;
+	}
+					
+		.addRecipeItemIngredientsStepBtnsContainer {
+			padding-top: 0.4em;
+		}
+			.addRecipeItemIngredientsStepBtnsContainer a{
+							
+			}
+		a.deleteRecipeItemIngredientsStepBtns {
+			font-size: 13px;
+			padding: 0.1em;
+		}
+
+/*#endregion*/
+	/*#endregion*/
+
+/*#endregion*/
+
+/*#region Recipes Delete */
+.deleteRecipeBtnsContainer {
+	padding-bottom: 3em;
+}
+
+	#currentRecipe.adminDeleteRecipeInfo h2{
+		background-color: rgba(255,255,255,0);
+		color: #5F5E5D;
+		border:0;
+		text-shadow:none;
+	}
+
+/*#endregion*/
+	
+/*#endregion*/
+
+/*#region Units */
+
+#newUnitForm {
+	width: 70%;
+}
+
+#updateUnitForm .form-group,#deleteUnitForm .form-group {
+	width: 100%;
+}
+
+/*#endregion*/
+
+/*#region Categories */
+
+#categoriesTable>tbody>tr>td{
+	vertical-align: middle;
+}
+#categoriesTable>tbody>tr>td:nth-child(2){
+	text-align: left;
+}
+	.chlidrenCategoriesContainer span {
+		float:right;
+	
+	}
+
+#updateCategoryForm .radioBtnsContainer {
+	padding-top: 7px;
+}
+/*#endregion*/
+
+/*=========================== Clear parent containers of floated children ====================================*/
+.administrationContainer nav,.chlidrenCategoriesContainer li
+{
+    zoom: 1;
+}
+
+     .administrationContainer nav:after,.chlidrenCategoriesContainer li:after
+     {
+        content: "\0020";
+        display: block;
+        height: 0;
+        clear: both;
+        overflow: hidden;
+     }
+     
+.ajaxLoader
+{
+    outline-style: none;
+    outline-color: invert;
+    outline-width: 0px;
+    width:24px;
+    height:24px;
+    /*background-image: url("ajax-loade.gif");*/
+    background-image: url('../Images/ajax-loader.gif');
+}
+

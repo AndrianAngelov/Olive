@@ -1,0 +1,668 @@
+﻿<UserControl xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"  
+             x:Class="Olive.Desktop.WPF.Views.RecipeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ViewModels="clr-namespace:Olive.Desktop.WPF.ViewModels"
+             xmlns:Properties="clr-namespace:Olive.Desktop.WPF.Properties"
+             xmlns:Converters="clr-namespace:Olive.Desktop.WPF.Converters"
+             xmlns:Controls="clr-namespace:Olive.Desktop.WPF.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Converters:ImageSourceConverter x:Key="imageSourceConverter"/>
+        <Converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <Converters:HoursToMinutesConverter x:Key="hoursToMinutesConverter"/>
+        <Converters:MinutesFromHoursConverter x:Key="minutesFromHoursConverter"/>
+        <Converters:ItemIndexToStringConverter x:Key="itemIndexToStringConverter"/>
+        <Converters:ParentCategoryConverter x:Key="parentCategoryConverter"/>
+        <Converters:BitmapToImageSourceConverter x:Key="bitmapToImageSourceConverter"/>
+        <Converters:IncreaseIndexWithOneConverter x:Key="increaseIndexWithOneConverter"/>
+        <Converters:RecommendationCoverter x:Key="recommendationCoverter"/>
+        <Converters:DateConverter x:Key="dateConverter"/>
+        <BitmapImage x:Key="woodBackground" UriSource="../Resources/wood-background.jpg" />
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical">
+            <StackPanel.Background>
+                <ImageBrush ImageSource="{StaticResource woodBackground}" 
+                                TileMode="Tile" 
+                                Viewport="0,0,0.3,1">
+                </ImageBrush>
+            </StackPanel.Background>
+            
+            <!--=====================================================================-->
+            <!--                         Recipe View Mode (Main Info)                -->
+            <!--=====================================================================-->
+            <StackPanel Name="RecipeMainInfo" DataContext="{Binding Recipe}"
+                        Visibility="{Binding Path=DataContext.IsViewMode,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                            Converter={StaticResource boolToVisibilityConverter}}" >
+                
+                <!--=====================================================================-->
+                <!--                         Recipe View Title                           -->
+                <!--=====================================================================-->
+                <Border Style="{StaticResource BorderRecipeTitleStyle}" >
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Source="../Resources/olive_twig_left.png" Height="30" />
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource TextBlockPageNameStyle}"/>
+                            <Image Source="../Resources/olive_twig_right.png" Height="30" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Button Content="Промени"
+                                Style="{StaticResource ButtonViewsStyle}"
+                                Margin="0,0,3,0"
+                                Command="{Binding Path=DataContext.EditRecipeCommand, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                            <Button Content="Изтрий"
+                                Style="{StaticResource ButtonViewsStyle}"
+                                Margin="0,0,3,0"
+                                Command="{Binding Path=DataContext.DeleteRecipeCommand, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Grid Background="{StaticResource SolidBrushBeigeOpacity}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!--=====================================================================-->
+                    <!--                         Recipe View MainInfo                        -->
+                    <!--=====================================================================-->
+                    <Border Grid.Row="0" Grid.ColumnSpan="2" Padding="10" >
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderStyle}" HorizontalAlignment="Center">
+                            <Border Background="#404040" Padding="1">
+                                <Border Style="{StaticResource BorderImageRecipeStyle}" Height="250" Width="250">
+                                    <Image Source="{Binding Path=ImageURL,Converter={StaticResource bitmapToImageSourceConverter}}" Stretch="UniformToFill"></Image>
+                                </Border>
+                            </Border>
+                            <StackPanel Orientation="Vertical" Style="{StaticResource StackPanelRecipeHeaderInfoContainerStyle}">
+                                <StackPanel Orientation="Horizontal" DataContext="{Binding Categories}" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Категория: " Style="{StaticResource TextBlocksRecipeStyle}"/>
+
+                                    <TextBlock Style="{StaticResource TextBlocksRecipeSectionNormalStyle}">
+                                    <Run Text="{Binding Name}"/>
+                                    <Run Text=","/>
+                                    <Run Text="{Binding Category1.Name}" />
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Време за подготовка: "  Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <TextBlock Style="{StaticResource TextBlocksRecipeSectionNormalStyle}">
+                                    <Run Text="{Binding PreparationTime,Converter={StaticResource hoursToMinutesConverter}}" />
+                                    <Run Text="ч. "/>
+                                    <Run Text="{Binding PreparationTime,Converter={StaticResource minutesFromHoursConverter}}" />
+                                    <Run Text="мин."/>
+                                    </TextBlock>
+
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Време за готвене: "  Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <TextBlock Style="{StaticResource TextBlocksRecipeSectionNormalStyle}">
+                                    <Run Text="{Binding CookingTime,Converter={StaticResource hoursToMinutesConverter}}" />
+                                    <Run Text="ч. "/>
+                                    <Run Text="{Binding CookingTime,Converter={StaticResource minutesFromHoursConverter}}" />
+                                    <Run Text="мин."/>
+                                    <Run Text="{Binding Path=SelectedItem.Name, ElementName=ComboBoxIngredientsNames}" />
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Порции: "  Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <TextBlock Text="{Binding Serves}" Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Източник: "  Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <TextBlock Text="{Binding Source.Name}" Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Рейтинг: "  Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <Controls:RatingControl Width="87" Height="15" RatingValue="{Binding Rating}" IsEnabled="False"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Посетена: "  Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <TextBlock Text="{Binding NumberOfHits}" Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Препоръчана: "  Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <TextBlock Text="{Binding Recommended, Converter={StaticResource recommendationCoverter}}" Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeViewHeaderItemsStyle}">
+                                    <TextBlock Text="Дата на публикуване: "  Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <TextBlock Text="{Binding Date,Converter={StaticResource dateConverter}}" Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"/>
+                                </StackPanel>
+
+                            </StackPanel>
+                            <Border Style="{StaticResource BorderRecipeDescriptionStyle}" HorizontalAlignment="Right">
+                                <StackPanel Orientation="Vertical" Style="{StaticResource StackPanelRecipeDescriptionStyle}">
+                                    <Label Content="Допълнителна информация: " Style="{StaticResource LabelsRecipeDescriptionStyle}"/>
+                                    <xctk:RichTextBox Name="RichText"  Text="{Binding Description}" 
+                                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    Background="{StaticResource SolidBrushLightGreen}"
+                                                      Foreground="#404040"
+                                                    IsReadOnly="True"
+                                                    Height="223" Width="300">
+                                    </xctk:RichTextBox>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!--=====================================================================-->
+                    <!--                         Recipe View Ingredients/Steps               -->
+                    <!--=====================================================================-->
+                    <Border Grid.Row="1" Grid.Column="0"  
+                            CornerRadius="3,3,3,3" 
+                            Margin="10,0,5,20">
+                        <StackPanel >
+                            <Border Background="{StaticResource SolidBrushDarkGray}" CornerRadius="3,3,0,0">
+                                <TextBlock Text="Продукти:" 
+                                           FontWeight="Bold" 
+                                           FontSize="14" 
+                                           Foreground="White"
+                                           TextAlignment="Center"
+                                           Padding="5"/>
+                            </Border>
+                            <Border Background="{StaticResource SolidBrushDarkGreen}" Padding="2,0,2,2" CornerRadius="0,0,3,3">
+                                <ItemsControl Name="RecipeItemsProducts" ItemsSource="{Binding RecipeItems}" HorizontalAlignment="Stretch" >
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical" Margin="0" Background="{StaticResource SolidBrushLightGreenOpacity}">
+                                                <TextBlock Text="{Binding RecipeItemName}" Style="{StaticResource TextBlocksRecipeViewSectionTitleStyle}"/>
+                                                <ItemsControl ItemsSource="{Binding Path=RecipeItems_Ingredients}" Margin="10,10,10,10" >
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal" Margin="2">
+                                                                <TextBlock Text="{Binding Quantity}" Margin="0 0 2 0" Style="{StaticResource TextBlocksRecipeViewNormalStyle}" />
+                                                                <TextBlock Text="{Binding Unit.UnitShortName}" Margin="0 0 5 0" Style="{StaticResource TextBlocksRecipeViewNormalStyle}" />
+                                                                <TextBlock Text="{Binding Ingredient.Name}" Style="{StaticResource TextBlocksRecipeViewNormalStyle}"  />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="1"  
+                            CornerRadius="3,3,3,3" 
+                            Margin="5,0,10,20">
+                        <StackPanel >
+                            <Border Background="{StaticResource SolidBrushDarkGray}" CornerRadius="3,3,0,0">
+                                <TextBlock Text="Начин на приготвяне:" 
+                                           FontWeight="Bold" 
+                                           FontSize="14" 
+                                           Foreground="White"
+                                           TextAlignment="Center"
+                                           Padding="5"/>
+                            </Border>
+                            <Border Background="{StaticResource SolidBrushDarkGreen}" Padding="2,0,2,2" CornerRadius="0,0,3,3">
+                                <ItemsControl Name="RecipeItemsSteps" ItemsSource="{Binding RecipeItems}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical" Background="White" Margin="0" >
+                                                <TextBlock Text="{Binding RecipeItemName}" Style="{StaticResource TextBlocksRecipeViewSectionTitleStyle}"/>
+                                                <ItemsControl ItemsSource="{Binding Path=Steps}" AlternationCount="30" >
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border >
+                                                                <TextBlock Style="{StaticResource TextBlocksRecipeViewNormalStyle}" TextWrapping="Wrap" Background="{StaticResource SolidBrushLightGreenOpacity}" Padding="10,10,10,10">
+                                                                    <Run Text="{Binding Path=(ItemsControl.AlternationIndex),Mode=OneWay, 
+                                                                        RelativeSource={RelativeSource TemplatedParent}, 
+                                                                        FallbackValue=FAIL, 
+                                                                        StringFormat={}{0}) ,Converter={StaticResource increaseIndexWithOneConverter}}" />
+                                                                    <Run Text=" " />
+                                                                    <Run Text="{Binding Description}" />
+                                                                </TextBlock>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+
+            <!--=====================================================================-->
+            <!--                         Recipe Insert/Edit Mode                     -->
+            <!--=====================================================================-->
+            <StackPanel DataContext="{Binding Recipe}"
+                        Style="{StaticResource StackPanelRecipeBackgroundStyle}"
+                        Visibility="{Binding Path=DataContext.IsEditMode,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                            Converter={StaticResource boolToVisibilityConverter}}">
+                <!--=====================================================================-->
+                <!--                        Insert/Edit Recipe Main Info                        -->
+                <!--=====================================================================-->
+                
+                <DockPanel >
+                    <!--<StackPanel Name="EditRecipeMainInfo" >-->
+                    <Border DockPanel.Dock="Top" Style="{StaticResource BorderRecipeTitleStyle}">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeTitleStyle}">
+                            <Image Source="../Resources/olive_twig.png" Height="30" />
+
+                            <Label Content="Заглавие на рецептата: " Style="{StaticResource LabelsRecipeTitleStyle}"/>
+                            <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxRecipeViewStyles}"/>
+
+                            <Image Source="../Resources/olive_twig_right.png" Height="30" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border DockPanel.Dock="Bottom" Style="{StaticResource BorderRecipeHeaderStyle}">
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderStyle}" HorizontalAlignment="Center">
+                            <StackPanel Background="White" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Border Style="{StaticResource BorderImageRecipeStyle}">
+                                    <Image Name="RecipeImageInsertEdit"  Source="{Binding Path=ImageURL,Converter={StaticResource bitmapToImageSourceConverter}}" Stretch="UniformToFill"></Image>
+                                </Border>
+                                <Button Content="Добави изображение"
+                                    Command="{Binding Path=DataContext.AddImageCommand,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                    Style="{StaticResource ButtonViewsStyle}"
+                                        CommandParameter="{Binding ElementName=RecipeImageInsertEdit}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Style="{StaticResource StackPanelRecipeHeaderInfoContainerStyle}">
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderItemsStyle}">
+                                    <Label  Content="Категория : " Style="{StaticResource LabelsRecipeHeaderStyle}"/>
+                                    <StackPanel Orientation="Horizontal" >
+                                        <ComboBox ItemsSource="{Binding Path=DataContext.ParentCategories,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            DisplayMemberPath="Name"
+                                            IsSynchronizedWithCurrentItem="True"
+                                            SelectedItem="{Binding Path=DataContext.RecipeCategory,
+                                                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                                                    Converter={StaticResource parentCategoryConverter}}"     
+                                            Style="{StaticResource ComboBoxStyle}" 
+                                            Width="100"/>
+                                        <ComboBox ItemsSource="{Binding Path=DataContext.ParentCategories/Categories1,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            DisplayMemberPath="Name"
+                                            IsSynchronizedWithCurrentItem="False"
+                                            SelectedItem="{Binding Path=DataContext.RecipeCategory,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"     
+                                            Style="{StaticResource ComboBoxStyle}" 
+                                            Width="100"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderItemsStyle}">
+                                    <Label  Content="Време за подготовка: " Style="{StaticResource LabelsRecipeHeaderStyle}"/>
+                                    <ComboBox ItemsSource="{Binding Path=DataContext.Hours,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            SelectedItem="{Binding Path=DataContext.PreparationTime,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Converter={StaticResource hoursToMinutesConverter}}"
+                                            Style="{StaticResource ComboBoxStyle}" 
+                                            Width="50"/>
+                                    <TextBlock Text=" ч.  " Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <ComboBox ItemsSource="{Binding Path=DataContext.Minutes,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                              SelectedItem="{Binding Path=DataContext.PreparationTime,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},Converter={StaticResource minutesFromHoursConverter}}"
+                                                Style="{StaticResource ComboBoxStyle}" 
+                                                Width="50"/>
+                                    <TextBlock Text=" мин." Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderItemsStyle}">
+                                    <Label  Content="Време за готвене: "
+                                    Style="{StaticResource LabelsRecipeHeaderStyle}"/>
+                                    <ComboBox ItemsSource="{Binding Path=DataContext.Hours,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                        SelectedItem="{Binding Path=DataContext.CookingTime,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Converter={StaticResource hoursToMinutesConverter}}"
+                                        Style="{StaticResource ComboBoxStyle}" 
+                                        Width="50"/>
+                                    <TextBlock Text=" ч.  " Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                    <ComboBox ItemsSource="{Binding Path=DataContext.Minutes,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                              SelectedItem="{Binding Path=DataContext.CookingTime,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},Converter={StaticResource minutesFromHoursConverter}}"
+                                        Style="{StaticResource ComboBoxStyle}" 
+                                        Width="50"/>
+                                    <TextBlock Text=" мин." Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderItemsStyle}">
+                                    <Label Content="Порции: " Style="{StaticResource LabelsRecipeHeaderStyle}" />
+                                    <ComboBox ItemsSource="{Binding Path=DataContext.ServesArray,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                SelectedItem="{Binding Path=Serves}"
+                                                Style="{StaticResource ComboBoxStyle}" 
+                                                Width="40"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderItemsStyle}">
+                                    <Label Content="Рейтинг:" Style="{StaticResource LabelsRecipeHeaderStyle}"/>
+                                    <Controls:RatingControl Width="87" Height="15" RatingValue="{Binding Rating}" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderItemsStyle}">
+                                    <Label Content="Източник: " Style="{StaticResource LabelsRecipeHeaderStyle}"/>
+                                    <ComboBox ItemsSource="{Binding Path=DataContext.Sources,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                            DisplayMemberPath="Name"
+                                            SelectedItem="{Binding Path=Source}"
+                                            Style="{StaticResource ComboBoxStyle}" 
+                                            Width="150"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderItemsStyle}">
+                                    <Label Content="Препоръчана: " Style="{StaticResource LabelsRecipeHeaderStyle}" />
+                                    <ComboBox ItemsSource="{Binding Path=DataContext.RecommendationArray,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                    
+                                            SelectedItem="{Binding Path=Recommended , Converter={StaticResource recommendationCoverter}}"
+                                            Style="{StaticResource ComboBoxStyle}" 
+                                            Width="80"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeHeaderItemsStyle}">
+                                    <Label Content="Дата на добавяне: " Style="{StaticResource LabelsRecipeHeaderStyle}"/>
+                                    <DatePicker SelectedDate="{Binding Path=Date,Converter={StaticResource dateConverter}, Mode=TwoWay}"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontSize="12" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Border Style="{StaticResource BorderRecipeDescriptionStyle}">
+                                <StackPanel Orientation="Vertical" Style="{StaticResource StackPanelRecipeDescriptionStyle}">
+                                    <Label Content="Допълнителна информация: " Style="{StaticResource LabelsRecipeDescriptionStyle}"/>
+                                    
+                                    <xctk:RichTextBox Name="RichTextEditMode"  Text="{Binding Description}" 
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      Height="200" Width="300"
+                                        Background="{StaticResource SolidBrushLightGreen}">
+                                        <xctk:RichTextBoxFormatBarManager.FormatBar>
+                                            <xctk:RichTextBoxFormatBar />
+                                        </xctk:RichTextBoxFormatBarManager.FormatBar>
+                                    </xctk:RichTextBox>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </DockPanel>
+
+                <!--=====================================================================-->
+                <!--                         Insert/Edit Recipe Sections Info                   -->
+                <!--=====================================================================-->
+                <StackPanel Name="NewRecipeRecipeItems"  Style="{StaticResource StackPanelRecipeBackgroundStyle}" Margin="10,0,10,0">
+                    <Button Content="Добави нова секция"
+                            Command="{Binding Path=DataContext.AddNewRecipeItemCommand, 
+                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource ButtonViewsStyle}"
+                            Margin="0,3,0,0"/>
+
+                    <ItemsControl Name="ItemsControlNewRecipeItems"  ItemsSource="{Binding Path=RecipeItems}" AlternationCount="10">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" Background="{StaticResource SolidBrushDarkGray}" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- 
+                                Section Container
+                                -->
+                                <DockPanel Margin="0,3,0,0" LastChildFill="True">
+
+                                    <!-- 
+                                    Section Title
+                                    -->
+                                    <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                                        <DockPanel LastChildFill="True">
+                                            <StackPanel Orientation="Vertical"  DockPanel.Dock="Top">
+                                                <TextBlock Style="{StaticResource TextBlocksRecipeSectionNumberStyle}"
+                                                                        Text="{Binding Path=(ItemsControl.AlternationIndex), 
+                                                                        RelativeSource={RelativeSource TemplatedParent}, 
+                                                                        FallbackValue=FAIL, 
+                                                                        StringFormat={}Секция{0}: ,Converter={StaticResource increaseIndexWithOneConverter}}" />
+                                            </StackPanel>
+
+                                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Background="{StaticResource SolidBrushDarkGreen}">
+                                                <Label Content="Заглавие на секцията: " Style="{StaticResource LabelsRecipeSectionTitleStyle}"/>
+                                                <TextBox Name="TextBoxSectionName"  Text="{Binding RecipeItemName}" Style="{StaticResource TextBoxRecipeViewStyles}"/>
+                                            </StackPanel>
+                                            <StackPanel DockPanel.Dock="Right" Background="{StaticResource SolidBrushDarkGreen}"
+                                                    HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                                <TextBlock DockPanel.Dock="Right" 
+                                                       Text="{Binding Path=Text, ElementName=TextBoxSectionName}"
+                                                       Style="{StaticResource TextBlocksRecipeSectionTitleStyle}"
+                                                       Padding="127,0,0,0"/>
+                                            </StackPanel>
+
+                                        </DockPanel>
+                                    </StackPanel>
+
+                                    <!-- 
+                                    Section Footer
+                                    -->
+                                    <StackPanel DockPanel.Dock="Bottom" 
+                                        Background="{StaticResource SolidBrushDarkGreen}" >
+                                        <Button Content="Изтрий секцията"
+                                                Command="{Binding Path=DataContext.DeleteRecipeItemCommand, 
+                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource ButtonViewsStyle}"
+                                                Margin="0,3,0,3"
+                                                HorizontalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <!-- 
+                                    Section Inputs Panel
+                                    -->
+                                    <StackPanel Orientation="Vertical" 
+                                        Background="{StaticResource SolidBrushLightLightGray}" 
+                                        DockPanel.Dock="Left" >
+
+                                        <!-- 
+                                        Ingredients Panel
+                                        -->
+                                        <StackPanel Orientation="Vertical" Background="{StaticResource SolidBrushLightGreen}" Margin="5,5,5,0">
+                                            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeSectionItemHeaderStyle}">
+                                                <TextBlock Text="Съставки: " Style="{StaticResource TextBlocksRecipeSectionItemsHeaderStyle}" Width="500" />
+                                                <TextBlock Text="Съставки: " Style="{StaticResource TextBlocksRecipeSectionItemsHeaderStyle}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="70,5,0,5">
+                                                <TextBlock Text="Количество:  " Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                                <TextBlock Text="Eдиници:  " Style="{StaticResource TextBlocksRecipeStyle}" />
+                                                <TextBlock Text="Съставка:  " Style="{StaticResource TextBlocksRecipeStyle}" />
+                                            </StackPanel>
+                                           
+                                            <ItemsControl Name="ItemsControlIngredients" ItemsSource="{Binding Path=RecipeItems_Ingredients,UpdateSourceTrigger=PropertyChanged}" AlternationCount="99">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <DockPanel>
+                                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Width="500" >
+
+                                                                <TextBlock Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"
+                                                                        Text="{Binding Path=(ItemsControl.AlternationIndex), 
+                                                                        RelativeSource={RelativeSource TemplatedParent}, 
+                                                                        FallbackValue=FAIL, 
+                                                                        StringFormat={}Съставка_{0}: ,Converter={StaticResource increaseIndexWithOneConverter}}" />
+
+                                                                <TextBox x:Name="TextBoxQuantity" 
+                                                                 Text="{Binding Path=Quantity}"
+                                                                 Style="{StaticResource TextBoxRecipeViewStyles}"
+                                                                 Width="100"/>
+
+                                                                <ComboBox x:Name="ComboBoxUnits"  
+                                                                        ItemsSource="{Binding Path=DataContext.Units, 
+                                                                        RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                        IsSynchronizedWithCurrentItem="False"
+                                                                        DisplayMemberPath="UnitShortName"
+                                                                        SelectedItem="{Binding Unit}"
+                                                                        Style="{StaticResource ComboBoxStyle}" 
+                                                                        Width="50"/>
+
+                                                                <ComboBox Name="ComboBoxIngredientsNames"  
+                                                                      ItemsSource="{Binding Path=DataContext.Ingredients, 
+                                                                      RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                      DisplayMemberPath="Name"
+                                                                      IsSynchronizedWithCurrentItem="False"
+                                                                      SelectedItem="{Binding Path=Ingredient}"
+                                                                      Style="{StaticResource ComboBoxStyle}" 
+                                                                      Width="120"
+                                                                       Visibility="{Binding Path=DataContext.IsInsertMode,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},Converter={StaticResource boolToVisibilityConverter}}"/>
+                                                                <ComboBox Name="ComboBoxIngredients"  
+                                                                      ItemsSource="{Binding Path=DataContext.Ingredients, 
+                                                                      RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                      DisplayMemberPath="Name"
+                                                                      SelectedItem="{Binding Path=Ingredient }"
+                                                                      Style="{StaticResource ComboBoxStyle}" 
+                                                                      Width="120"
+                                                                       Visibility="{Binding Path=DataContext.IsUpdateMode,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},Converter={StaticResource boolToVisibilityConverter}}"/>
+
+                                                                <Button Content="Изтрий" Style="{StaticResource ButtonLitleViewsStyle}"
+                                                                    Command="{Binding Path=DataContext.DeleteIngredientCommand, 
+                                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                    CommandParameter="{Binding}"/>
+                                                            </StackPanel>
+
+                                                            <!-- 
+                                                            Section Output Ingredients Panel
+                                                            -->
+                                                            <StackPanel  DockPanel.Dock="Right" VerticalAlignment="Center" 
+                                                                        HorizontalAlignment="Left">
+                                                                <TextBlock Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"
+                                                                            Visibility="{Binding Path=DataContext.IsInsertMode,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},Converter={StaticResource boolToVisibilityConverter}}">
+                                                                    <Run Text="{Binding Path=Text, ElementName=TextBoxQuantity}" />
+                                                                    <Run Text="{Binding Path=SelectedItem.UnitShortName, ElementName=ComboBoxUnits}" />
+                                                                    <Run Text=" "/>
+                                                                   
+                                                                    <Run Text="{Binding Path=SelectedItem.Name, ElementName=ComboBoxIngredientsNames}" />
+                                                                </TextBlock>
+                                                                <TextBlock Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"
+                                                                            Visibility="{Binding Path=DataContext.IsUpdateMode,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},Converter={StaticResource boolToVisibilityConverter}}">
+                                                                    <Run Text="{Binding Path=Text, ElementName=TextBoxQuantity}" />
+                                                                    <Run Text="{Binding Path=SelectedItem.UnitShortName, ElementName=ComboBoxUnits}" />
+                                                                    <Run Text=" "/>
+                                                                   
+                                                                    <Run Text="{Binding Path=SelectedItem.Name, ElementName=ComboBoxIngredients}" />
+                                                                </TextBlock>
+                                                            </StackPanel>
+                                                        </DockPanel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+
+                                            <Button Content="Добави съставка"
+                                                    Command="{Binding Path=DataContext.AddNewIngredientCommand, 
+                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource ButtonViewsStyle}"
+                                                    Margin="5"
+                                                    Width="150"
+                                                    HorizontalAlignment="Left"/>
+                                        </StackPanel>
+
+                                        <!-- 
+                                        Steps Panel
+                                        -->
+                                        <StackPanel Orientation="Vertical" Background="{StaticResource SolidBrushLightGreen}" Margin="5">
+                                            <StackPanel Orientation="Horizontal" Style="{StaticResource StackPanelRecipeSectionItemHeaderStyle}">
+                                                <TextBlock Text="Начин на приготвяне: " Style="{StaticResource TextBlocksRecipeSectionItemsHeaderStyle}" Width="500" />
+                                                <TextBlock Text="Начин на приготвяне: " Style="{StaticResource TextBlocksRecipeSectionItemsHeaderStyle}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="70,5,0,5">
+                                                <TextBlock Text="Описание на стъпките:" Style="{StaticResource TextBlocksRecipeStyle}"/>
+                                            </StackPanel>
+
+                                            <ItemsControl Name="ItemsControlSteps" ItemsSource="{Binding Path=Steps}" AlternationCount="99">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <DockPanel>
+                                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Width="500" >
+                                                                <TextBlock Style="{StaticResource TextBlocksRecipeSectionNormalStyle}"
+                                                                        Text="{Binding Path=(ItemsControl.AlternationIndex), 
+                                                                        RelativeSource={RelativeSource TemplatedParent}, 
+                                                                        FallbackValue=FAIL, 
+                                                                        StringFormat={}Стъпка_{0}: ,Converter={StaticResource increaseIndexWithOneConverter}}" />
+
+                                                                <TextBox x:Name="TextBoxStepDescription" 
+                                                                     Text="{Binding Path=Description}" 
+                                                                    TextWrapping="Wrap"
+                                                                     Style="{StaticResource TextBoxRecipeViewStyles}"
+                                                                     Width="200"/>
+
+                                                                <Button Content="Изтрий" Style="{StaticResource ButtonLitleViewsStyle}"
+                                                                    Command="{Binding Path=DataContext.DeleteStepCommand, 
+                                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                    CommandParameter="{Binding}"/>
+                                                            </StackPanel>
+
+                                                            <StackPanel  DockPanel.Dock="Right" 
+                                                                     Orientation="Horizontal"
+                                                                     VerticalAlignment="Center" 
+                                                                     HorizontalAlignment="Left">
+                                                                <TextBlock Style="{StaticResource TextBlocksRecipeViewNormalStyle}"
+                                                                        Text="{Binding Path=(ItemsControl.AlternationIndex), 
+                                                                        RelativeSource={RelativeSource TemplatedParent}, 
+                                                                        FallbackValue=FAIL, 
+                                                                        StringFormat={}{0}),Converter={StaticResource increaseIndexWithOneConverter}}" />
+                                                                <TextBlock Text=" "/>
+                                                                <TextBlock Text="{Binding Path=Text, ElementName=TextBoxStepDescription}" 
+                                                                           Style="{StaticResource TextBlocksRecipeViewNormalStyle}" 
+                                                                           TextWrapping="Wrap" 
+                                                                           Width="200"/>
+                                                            </StackPanel>
+                                                        </DockPanel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <TextBlock Text="{Binding Path=Text, ElementName=text, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Width="100" Height="20"/>
+
+                                            <Button Content="Добави стъпка"
+                                                    Command="{Binding Path=DataContext.AddNewStepCommand, 
+                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                     CommandParameter="{Binding}"
+                                                    Style="{StaticResource ButtonViewsStyle}"
+                                                    Margin="5"
+                                                    Width="150"
+                                                    HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Button Content="Добави нова секция"
+                            Command="{Binding Path=DataContext.AddNewRecipeItemCommand, 
+                                                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource ButtonViewsStyle}"
+                            Margin="0,3,0,0"/>
+                </StackPanel>
+                <Button Content="Преустанови"
+                    Style="{StaticResource ButtonViewsStyle}"
+                    Margin="0,3,0,0"
+                    Command="{Binding Path=DataContext.CancelRecipeCommand, 
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                <Button Content="Запази"
+                    Style="{StaticResource ButtonViewsStyle}"
+                    Margin="0,3,0,0"
+                    Command="{Binding Path=DataContext.AddNewRecipeCommand, 
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                    Visibility="{Binding Path=DataContext.IsInsertMode,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                Converter={StaticResource boolToVisibilityConverter}}"/>
+                <Button Content="Запази"
+                    Style="{StaticResource ButtonViewsStyle}"
+                    Margin="0,3,0,0"
+                    Command="{Binding Path=DataContext.UpdateRecipeCommand, 
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                    Visibility="{Binding Path=DataContext.IsUpdateMode,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                    Converter={StaticResource boolToVisibilityConverter}}"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

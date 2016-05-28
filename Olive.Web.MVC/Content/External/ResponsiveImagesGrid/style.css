@@ -1,0 +1,48 @@
+/* Portolio Hover */
+.da-thumbs li  {
+	overflow: hidden;
+}
+.da-thumbs li  article {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.da-thumbs li  article.da-animate {
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+/* Initial state classes: */
+.da-slideFromTop {
+	left: 0px;
+	top: -102%;
+}
+.da-slideFromBottom {
+	left: 0px;
+	top: 102%;
+}
+.da-slideFromLeft {
+	top: 0px; 
+	left: -102%;
+}
+.da-slideFromRight {
+	top: 0px;
+	left: 102%;
+}
+/* Final state classes: */
+.da-slideTop {
+	top: 0px;
+}
+.da-slideLeft {
+	left: 0px;
+}
+
+
+
+
+
+
+
+

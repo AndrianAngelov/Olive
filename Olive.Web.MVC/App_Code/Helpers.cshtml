@@ -1,0 +1,118 @@
+﻿@helper AnchorSpan(string className, string urlToAction, string innerText)
+    {
+    <a  class"@(className)" href="@(urlToAction)"><span>@(innerText)</span></a>
+}
+
+@helper AnchorSpan(string urlToAction, string innerText)
+    {
+    <a href="@(urlToAction)"><span>@(innerText)</span></a>
+}
+
+@helper AdditionPrepCookTime(int preparationTime, int cookTime)
+{
+    int sumTime = preparationTime + cookTime;
+    int additionHours = sumTime / 60;
+    int additionMinutes = sumTime % 60;
+
+    if (additionHours==0)
+    {
+        <span>@(additionMinutes)мин.</span>
+    }
+    else if (additionMinutes==0)
+    {
+        <span>@(additionHours)часа</span>
+    }
+    else
+    {
+        <span>@(additionHours)ч. @(additionMinutes)мин.</span>
+    }
+    
+}
+
+@helper PreparationCookTime(string labelText, int preparationOrCookingTime, string element)
+    {
+    int hours = preparationOrCookingTime / 60;
+    int minutes = preparationOrCookingTime % 60;
+    string minutesLabel = "";
+    string hoursLabel = "";
+
+    if (minutes == 1)
+    {
+        minutesLabel = "минута";
+    }
+    else
+    {
+        minutesLabel = "минути";
+    }
+
+    if (hours == 1)
+    {
+        hoursLabel = "час";
+    }
+    else
+    {
+        hoursLabel = "часа";
+    }
+
+    if (hours == 0)
+    {
+        if (element == "li")
+        {
+             <li><strong>@(labelText): </strong>@(minutes) мин.</li> 
+        }
+        if (element == "td")
+        {
+            <td><p>@(minutes) @(minutesLabel)</p></td>
+        }
+        if (element == "text")
+        {
+            <strong>@(labelText): </strong>@(minutes) @:мин.
+        }
+
+    }
+    else if (minutes == 0)
+    {
+        if (element == "li")
+        {
+              <li><strong>@(labelText): </strong><strong>Време за подготовка: </strong>@(hours) ч.</li>
+        }
+        if (element == "td")
+        {
+            <td><p>@(hours) @(hoursLabel)</td>
+        }
+        if (element == "text")
+        {
+            <strong>@(labelText): </strong>@(hours) @:ч.
+        }
+
+    }
+    else
+    {
+        if (element == "li")
+        {
+             <li><strong>@(labelText): </strong>@(hours) ч. и @(minutes)  мин.</li> 
+        }
+        if (element == "td")
+        {
+           <td><p>@(hours)@(hoursLabel) и @(minutes)@(minutesLabel)</p></td>
+        }
+        if (element == "text")
+        {
+            <strong>@(labelText): </strong>@(hours) @:ч. и @(minutes)  мин.
+        }
+
+    }  
+}
+
+@helper RecomendationValueToBg(bool? value)
+{
+    if (value==false || value==null)
+    {
+        @:Не
+    }
+    else
+    {
+        @:Да
+    }
+}
+

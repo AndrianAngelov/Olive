@@ -1,0 +1,57 @@
+﻿@model Olive.Web.MVC.ViewModels.RecipesListViewModel           
+@{
+    ViewBag.Title = ViewBag.CurrentTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CategoriesMenuCss {
+    @*<link href="../../Content/External/CircularNavigation/css/component2.css" rel="stylesheet" type="text/css" />*@
+}
+    
+<nav id="categoriesMenuOuterContainer" >
+    @{Html.RenderAction("CategoriesList", "Recipes", new { area = "" }); }
+</nav>
+
+<section id="allRecipesList" class="recipesContainer dottedBorder">
+     @Html.Partial("_RecipesListPartial", Model)
+</section>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var loaderContainer = $('.loaderImageConatiner');
+        var loader = $('.loaderImage');
+        var recipeItems = $('.recipeItemContainer');
+
+        loader.css("visibility", "hidden");
+        recipeItems.click(function () {
+            loader.css("visibility", "visible");
+
+        });
+    });
+    
+</script>
+
+@section Scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetAllRecipesList();
+
+        var currentCategoryID = $("#currentCategoryID").val();
+        GetRecipesByCategory(currentCategoryID);
+
+        var mainContentHeight=$("#mainContent").height();
+        $("#categoriesMenuOuterContainer").height(mainContentHeight);
+    });
+    function successLoadRecipesByCategoryList() {
+        GetAllRecipesList();
+        var currentCategoryID = $("#currentCategoryID").val();
+        GetRecipesByCategory(currentCategoryID);
+        SetDefaultStartPages();
+        RecipesItemsHover();
+    };
+
+</script>
+}
+
+

@@ -1,0 +1,257 @@
+﻿@model Olive.Web.MVC.Areas.Administration.ViewModels.AdminRecipeViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Administration/Views/Shared/_AdministrationLayout.cshtml";
+}
+
+<h2>Промени рецептата</h2>
+
+<script src="../../../../Content/JS/External/jquery.validate.js" type="text/javascript"></script>
+<script src="../../../../Content/JS/External/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function previewFile() {
+        var preview = document.querySelector('#RecipeImage');
+        var file = document.querySelector('#UploadRecipeImage').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        else {
+            preview.src = "";
+        }
+    }
+
+    function previewFileEdit() {
+        var preview = document.querySelector('#RecipeImage');
+        var file = document.querySelector('#UploadRecipeImage').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+        else {
+            preview.src = "";
+        }
+    }
+</script>
+@if (false)
+{
+    <script src="../../../../Content/JS/External/jquery-2.1.0.js" type="text/javascript"></script>
+    <script src="../../../../Content/JS/External/jquery-2.1.0-vsdoc.js" type="text/javascript"></script>
+}
+@using (Html.BeginForm("Edit", "AdminRecipes", FormMethod.Post, new { id = "newRecipeForm", @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.RecipeID)
+    <section class="newRecipeHeaderContainer adminRecipeHeaderContainer">
+        <article class="newRecipeImageUploadContainer adminRecipeImageUploadContainer">
+            <div id="ImageContainer">
+                <img id="RecipeImage" src="@Model.ImageURL" />
+            </div>
+            @Html.HiddenFor(model => model.ImageURL)
+            <input ID="UploadRecipeImage" type="file" name="image" id="image" onchange="previewFile()"/>
+            @Html.ValidationMessageFor(model => model.Recipe.ImageURL)
+        </article>
+        <article class="newRecipeMainInfoContainer adminRecipeMainInfoContainer">
+            <ul>
+                <li class="adminRecipeTitleContainer">
+                    <span>@Html.LabelFor(model => model.Title, "Заглавие: ")</span>
+                    <span>@Html.TextBoxFor(model => model.Title, new { id = "newРecipeTitleTextBox", @class = "form-control recipeTitleTextBox", placeholder = "Заглавие на рецептата" })</span>
+                    @Html.ValidationMessageFor(model => model.Title)
+                </li>
+                <li>
+                    <span>@Html.LabelFor(model => model.ParentCategories, "Категория: ")</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedParentCategory, new SelectList(Model.ParentCategories, "CategoryID", "Name"), "--- Избери Главна Категория ---", new { id = "parentCategories", @class = "adminRecipeDropDown" })</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedChildrenCategory, new SelectList(Model.ChildrenCategories, "CategoryID", "Name"), "--- Избери Подкатегория ---", new { id = "childrenCategories", disabled = "disabled", @class = "adminRecipeDropDown" })</span>
+                </li>
+                <li>
+                    <span>@Html.LabelFor(model => model.PrepTimeHours, "Време за подготовка: ")</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedPrepTimeHours, new SelectList(Model.PrepTimeHours), "--- Избери часове ---", new { id = "prepHoursDD", @class = "adminRecipeDropDown" })</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedPrepTimeMinutes, new SelectList(Model.PrepTimeMinutes), "--- Избери минути ---", new { id = "prepMinutesDD", @class = "adminRecipeDropDown" })</span>
+                </li>
+                <li>
+                    <span>@Html.LabelFor(model => model.SelectedCookTimeHours, "Време за готвене: ")</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedCookTimeHours, new SelectList(Model.CookTimeHours), "--- Избери часове ---", new { id = "cookHoursDD", @class = "adminRecipeDropDown" })</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedCookTimeMinutes, new SelectList(Model.CookTimeMinutes), "--- Избери минути ---", new { id = "cookMinutesDD", @class = "adminRecipeDropDown" })</span>
+                </li>
+                <li>
+                    <span>@Html.LabelFor(model => model.Serves, "Порции: ")</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedServes, new SelectList(Model.Serves), "--- Избери брой порции ---", new { id = "servesDD", @class = "adminRecipeDropDown" })</span>
+                </li>
+                <li>
+                    <span>@Html.LabelFor(model => model.Rating, "Рейтинг: ")</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedRating, new SelectList(Model.Rating), "--- Избери рейтинг ---", new { id = "ratingDD", @class = "adminRecipeDropDown" })</span>
+                </li>
+                <li>
+                    <span>@Html.LabelFor(model => model.Sources, "Източник: ")</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedSource, new SelectList(Model.Sources, "SourceID", "Name"), "--- Избери източник ---", new { id = "sourcesDD", @class = "adminRecipeDropDown" })</span>
+                </li>
+                <li>
+                    <span>@Html.LabelFor(model => model.Recommendation, "Пропоръчана: ")</span>
+                    <span class="adminRecipeDropDownContainer"> @Html.DropDownListFor(model => model.SelectedRecommendation, new SelectList(Model.Recommendation), "--- избери дали да е препоръчана ---", new { id = "recommendationDD", @class = "adminRecipeDropDown" })</span>
+                </li>
+                <li>
+                    <span>@Html.LabelFor(model => model.PublishedDate, "Публицувана на: ")</span>
+                    <span class="adminDateTimeContainer"> @Html.EditorFor(model => model.PublishedDate)</span>
+                </li>
+            </ul>
+        </article>
+    </section>
+        
+    <section class="newRecipeDescriptionContainer adminRecipeDescriptionContainer">
+        @Html.EditorFor(model => model.Description)
+        @Html.ValidationMessageFor(model => model.Description)
+        <script type="text/javascript">
+            CKEDITOR.replace('Description');
+        </script>
+    </section>
+    
+    <div class="addSectionBtnContainer">
+        @Ajax.ActionLink("Добави нова секция",
+                                 "AddSection", new { Area = "Administration" },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "Get",
+                                    InsertionMode = InsertionMode.InsertAfter,
+                                    UpdateTargetId = "recipeSectionContainer",
+                                    OnSuccess = "successAddRecipeItem"
+                                }, new { @class = "normalGreenBtn" })
+    </div>
+    <section id="recipeSectionContainer" class="adminRecipeSectionContainer">
+        @foreach (var recipeitem in Model.RecipeItems)
+        {
+            Html.RenderPartial("_RecipeItemEditor", recipeitem);
+        }
+        
+    </section>
+     <div class="addSectionBtnContainer">
+        @Ajax.ActionLink("Добави нова секция",
+                                 "AddSection", new { Area = "Administration" },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "Get",
+                                    InsertionMode = InsertionMode.InsertAfter,
+                                    UpdateTargetId = "recipeSectionContainer",
+                                    OnSuccess = "successAddRecipeItem"
+                                }, new { @class = "normalGreenBtn" })
+    </div>
+    <div>
+        <input type="submit" value="Запази промените" class = "normalRedBtn"/>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Преустанови", "Index",null,new{@class="normalGreenBtn"})
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#parentCategories').on('change', function () {
+                var childrenDropdown = $('#childrenCategories');
+                //disable state drop down
+                childrenDropdown.prop('disabled', 'disabled');
+                //clear drop down of old states
+                childrenDropdown.empty();
+
+                //retrieve selected country
+                var parent = $(this).val();
+                if (parent.length > 0) {
+                    // retrieve data using a Url.Action() to construct url
+                    $.getJSON('@Url.Action("GetChildrenCategories")', {
+                        id: parent
+                    })
+                    .done(function (data) {
+                        //re-enable state drop down
+                        childrenDropdown.removeAttr('disabled');
+                        //for each returned state
+                        var option = "<option value>" + "Избери Подкатегория" + "</option>";
+                        childrenDropdown.append(option);
+                        $.each(data, function (i, childrenCategory) {
+                            //Create new option
+                            var option = "<option value=" + '"' + childrenCategory.ID + '"' + ">" + childrenCategory.Name + "</option>";
+                            //append state states drop down
+                            childrenDropdown.append(option);
+                        });
+                    })
+                    .fail(function (jqxhr, textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        console.log("Request Failed: " + err);
+                    });
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("a.deleteSection").on("click", function () {
+                $(this).parents("article.recipeItemContainer:first").remove()
+                return false;
+            });
+            var childrenDropdown = $('#childrenCategories');
+            childrenDropdown.removeAttr('disabled');
+
+            var recipeItems = $(".recipeItemContainer");
+            recipeItems.each(function (index, recipeItem) {
+                var recipeItemIndex = $(this).children().val();
+                var recipeItemID = "recipeItems[" + recipeItemIndex + "]";
+                var steps = $(this).children().children(".steps");
+                var ingredients = $(this).children().children(".ingredients");
+
+                steps.children().each(function (stepIndex, stepChild) {
+                    if ($(this).is("input")) {
+                        var newName = $(this).attr("name").replace("forReplace", recipeItemID);
+                        $(this).attr("name", newName);
+                    }
+                    if ($(this).is("li")) {
+                        var newID = $(this).children().attr("id").replace("forReplace", 'recipeItems_' + recipeItemIndex + '_');
+                        var newName = $(this).children().attr("name").replace("forReplace", recipeItemID);
+                        $(this).children().attr("id", newID);
+                        $(this).children().attr("name", newName);
+                    }
+                });
+
+                ingredients.children().each(function (ingredientIndex, ingredientsChild) {
+                    if ($(this).is("input")) {
+                        var newName = $(this).attr("name").replace("forReplace", recipeItemID);
+                        $(this).attr("name", newName);
+                    }
+                    if ($(this).is("li")) {
+                        var quantityTextBoxes = $(this).find(".ingredientQuantityTextBox");
+                        console.log(quantityTextBoxes);
+                        quantityTextBoxes.each(function () {
+                            var newID = $(this).attr("id").replace("forReplace", 'recipeItems_' + recipeItemIndex + '_');
+                            var newName = $(this).attr("name").replace("forReplace", recipeItemID);
+                            $(this).attr("id", newID);
+                            $(this).attr("name", newName);
+                        });
+                        var unitsDropDowns = $(this).find(".unitsDD");
+                        unitsDropDowns.each(function () {
+                            var newID = $(this).attr("id").replace("forReplace", 'recipeItems_' + recipeItemIndex + '_');
+                            var newName = $(this).attr("name").replace("forReplace", recipeItemID);
+                            $(this).attr("id", newID);
+                            $(this).attr("name", newName);
+                        });
+                        var ingredientsDropDowns = $(this).find(".ingredientsDD");
+                        ingredientsDropDowns.each(function () {
+                            var newID = $(this).attr("id").replace("forReplace", 'recipeItems_' + recipeItemIndex + '_');
+                            var newName = $(this).attr("name").replace("forReplace", recipeItemID);
+                            $(this).attr("id", newID);
+                            $(this).attr("name", newName);
+                        });
+                    }
+                });
+
+            });
+        });
+        
+    </script>
+}

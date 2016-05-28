@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olive.Data", "Olive.Data\Olive.Data.csproj", "{CD9F9C44-B969-49BF-90EE-DCFA760457E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olive.Desktop.WPF", "Olive.Desktop.WPF\Olive.Desktop.WPF.csproj", "{A5FB6122-49CB-4CC3-A18C-56E04889DD16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olive.Web.MVC", "Olive.Web.MVC\Olive.Web.MVC.csproj", "{F895FECB-B469-42B5-BDF4-3F2BC1B9EF70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD9F9C44-B969-49BF-90EE-DCFA760457E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD9F9C44-B969-49BF-90EE-DCFA760457E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD9F9C44-B969-49BF-90EE-DCFA760457E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD9F9C44-B969-49BF-90EE-DCFA760457E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5FB6122-49CB-4CC3-A18C-56E04889DD16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FB6122-49CB-4CC3-A18C-56E04889DD16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FB6122-49CB-4CC3-A18C-56E04889DD16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FB6122-49CB-4CC3-A18C-56E04889DD16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F895FECB-B469-42B5-BDF4-3F2BC1B9EF70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F895FECB-B469-42B5-BDF4-3F2BC1B9EF70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F895FECB-B469-42B5-BDF4-3F2BC1B9EF70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F895FECB-B469-42B5-BDF4-3F2BC1B9EF70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

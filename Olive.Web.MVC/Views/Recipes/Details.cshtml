@@ -1,0 +1,147 @@
+﻿@model Olive.Data.Recipe
+@using Olive.Web.MVC.Helpers
+@{
+    ViewBag.Title = "Olive-Рецепта";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<article id="currentRecipe">
+    <header >
+        <ul>
+            
+            <li><img src="../../Content/Images/greenOliveTwing_left.png" alt="olive_twig_left" /></li>
+            <li><h2>@(Model.Title)</h2></li>
+            <li><img src="../../../Content/Images/greenOliveTwing_right.png" alt="olive_twig_right"/></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="@Url.Action("Edit", "AdminRecipes", new { id = Model.RecipeID, area = "Administration" })" class="normalGreenBtn">Промени </a> 
+                <li><button>Изтрий</button></li>
+            }
+        </ul>
+    </header>
+    <section id="recipeMainInfoContainer">
+        <article id="imgContainer">
+             <img src="@(HttpUtility.UrlDecode(Model.ImageURL))" alt="@Path.GetFileName(Model.ImageURL)"/> 
+        </article>
+        <article id="mainInfo">
+            <table class="users">
+              <tbody>
+                <tr>
+                  <td class="textAlignmentRight"><strong>категория: </strong></td>
+                  <td>
+                    @for (int i = 0; i < Model.Categories.Count; i++)
+                    {
+                        <span>
+                            @if(i<1)
+                            {
+                                @Model.Categories.ToList()[i].Name.ToLower()
+                            }
+                            else
+                            {
+                                @:, @Model.Categories.ToList()[i].Name.ToLower()
+                            }        
+                        </span>
+                    }
+                  </td>
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>време за подготовка: </td>
+                     @Helpers.PreparationCookTime("Подготовка", (int)Model.PreparationTime, "td")
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>време за готвене: </td>
+                    @Helpers.PreparationCookTime("Готвене", (int)Model.CookingTime, "td")
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>порции: </td>
+                    <td>@(Model.Serves)</td>
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>източник: </td>
+                    <td><a href="#">@(Model.Source.Name)</a> </td>
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>рейтинг: </td>
+                    <td>@(Model.Rating)</td>
+                </tr>
+                <tr>
+                    <td class="separator"></td>
+                </tr>
+                <tr>
+                    <td>публикувана на: </td>
+                    <td>@(((DateTime)Model.Date).ToShortDateString())</td>
+                </tr>
+              </tbody>
+            </table>
+        </article>
+        <article id="recipeDescription">
+            <p>@RtfHelper.PlainText(Model.Description)</p>
+        </article>
+    </section>
+    <section id="recipeIngredientsStepsContainer">
+        <article id="recipeIngredients">
+            
+            <h2 id="recipeIngredientsTitleText">Съставки</h2>
+           
+            @foreach (var recipeItem in Model.RecipeItems)
+            {
+                if (ViewBag.NubersOfrecupeItems > 1)
+                {
+                    <h3 class="subTitle">@(recipeItem.RecipeItemName)</h3>
+                }
+
+                foreach (var recipeItemIngredient in recipeItem.RecipeItems_Ingredients)
+                {
+                    
+                    <p><span>@(recipeItemIngredient.Quantity)</span><span>@(recipeItemIngredient.Unit.UnitShortName)</span><span> @(recipeItemIngredient.Ingredient.Name)</span> </p>
+                    
+                }
+            }
+        </article>
+        <article id="recipeSteps">
+             <h2 id="recipeStepsTitleText">Начин на приготвяне</h2>
+            @foreach (var recipeItem in Model.RecipeItems)
+            {
+                if (ViewBag.NubersOfrecupeItems > 1)
+                {
+                   <h3 class="subTitle">@(recipeItem.RecipeItemName)</h3>
+                }
+
+                int counter = 1;
+                foreach (var step in recipeItem.Steps)
+                {
+                    <p><span class="stepsNumbers">@(counter.ToString()). </span><span>@(step.Description)</span></p>
+                    counter++;
+                }
+            }
+        </article>
+    </section>
+</article>
+@section Scripts {
+<script type="text/javascript">
+        $(document).on("click", ".recipeItemContainer", function () {
+            var currentRecipeID = $(this).children().first().val();
+            $.ajax({
+                url: '/Recipes/RecipeLikesCounter/' + currentRecipeID,
+                type:"Post",
+                //data: currentRecipeID,
+                cache: false,
+                success: function (html) {
+                }
+            });
+        });
+</script>

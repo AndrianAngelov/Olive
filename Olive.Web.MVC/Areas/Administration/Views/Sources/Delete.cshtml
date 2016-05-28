@@ -1,0 +1,25 @@
+﻿@model Olive.Data.Source
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<section id="deleteSourceFormContainer">
+    @using (Ajax.BeginForm("Delete", null, new AjaxOptions
+    {
+        HttpMethod = "Post",
+        OnFailure = "sourcePostFailure",
+        OnSuccess = "successDeleteSource"
+    }, new { id = "deleteSourceForm", @class = "administrationEditDialogForm" }))
+    {
+        <div class="form-group">
+            <label for="sourceName" class="control-label">Име:</label>
+            <span >
+                @Html.DisplayFor(model => model.Name)
+            </span>
+        </div>
+        <div class="updateDeteleBtnContainer">
+            <input class="deleteBtn" type="submit" value="Изтрий" />
+        </div>
+    }
+</section>

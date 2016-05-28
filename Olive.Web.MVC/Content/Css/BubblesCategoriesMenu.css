@@ -1,0 +1,114 @@
+﻿/* File Created: октомври 29, 2014 */
+
+/*
+	Brown Dark #887C64
+    Brown Light #ACA393
+
+    Green Dark #81987c
+	Green Light #86b695
+    Green LightLight #DCE1CB rgb:220,225,203
+
+    Beige #E6E7DB
+   
+    Red Light #E87162
+    Red Dark #E24A37
+
+    Gray LightLight #e9e9e9
+    Gray Light #B4B2AE
+	Gray Dark #5F5E5D
+
+    Yellow #FCD920
+    KillBlue #3CB5B5
+    LightBlack #404040
+*/
+#categoriesMenuOuterContainer {
+	background-color: #5F5E5D;
+	/*background-size: 23px;
+	background-image: url('../Images/header_background_DarkGraySolid.png');*/
+	background-size: 23px;
+	background-image: url('../Images/header_background_DarkGraySolid_bottomBorder.png');
+	background-position: 0 0;
+	background-repeat:repeat-x;
+	display: inline-block;
+	width: 9%;
+	/*margin-top: 35px; */
+	/*margin-left: -0.2em; */
+	margin:0;
+	padding: 2em 0 1em 0;
+	text-align: center;
+	float: left;
+	
+}
+	section#categoriesMenuInnerContainer {
+		/*padding: 2em;*/
+		background-color: #5F5E5D;
+		display: inline-block;
+		text-align: center;
+	}
+	
+		ul.mainCategoriesContainer {
+			display: inline-block;
+			vertical-align:top;
+			text-align: center;
+	
+			/*position: relative;*/
+		}
+			ul.mainCategoriesContainer li.mainCategories{
+				width: 4.8em;
+				height: 4.8em;
+	
+			}
+			ul.mainCategoriesContainer li#1{
+				border:solid #fff 2px;
+			}
+			ul.mainCategoriesContainer li.mainCategories:hover{
+				background-color: #E87162;
+			}
+				ul.mainCategoriesContainer .mainCategories a{
+					color:Black;
+					font-weight: bold;
+				}
+					ul.mainCategoriesContainer .mainCategories a img{
+					}
+li.childrenCategoriesOuterContainer{
+	position:relative;
+	
+} 
+ul.childrenCategoriesContainer{
+	color:#fff;
+	background-color: #5F5E5D;
+	display:inline-block;
+	padding: 0.5em 0.5em 0.5em 0.5em;
+	text-align: left;
+	position:absolute;
+	top:-4.8em;
+	left:4.7em;
+	z-index: 40;
+	visibility: hidden;
+	border-radius:0.3em; 
+}
+ul.mainCategoriesContainer:hover .childrenCategoriesContainer {
+		visibility: visible;
+		background-color: #E87162;
+}
+	/*.childrenCategoriesContainer:hover ul.mainCategoriesContainer{
+		background-color: #E87162;
+	}*/
+		.childrenCategoriesContainer li a{
+			color:#fff;
+			/*border:solid #fff 1px;*/
+			padding: 2px;
+		}
+		
+/*=========================== Clear parent containers of floated children ====================================*/
+#categoriesMenuOuterContainer,#mainContent{
+    zoom: 1;
+}
+
+     #categoriesMenuOuterContainer:after ,#mainContent:after{
+        content: "\0020";
+        display: block;
+        height: 0;
+        clear: both;
+        overflow: hidden;
+     }

@@ -1,0 +1,56 @@
+﻿@model Olive.Web.MVC.ViewModels.RecipesListViewModel  
+
+@*first page btns*@
+<div class="round-button">
+    <div class="round-button-circle">
+        <a class="pagingButton @(Model.PagingBtnsClass.ToString())"><<</a>
+    </div>
+</div>
+
+@*prev page btns*@
+@Html.Hidden("currentPage", 1)
+@Html.Hidden("numberOfPages", Model.RecipesListNumberOfPages.ToString()) 
+@if (Model.CurrentCategoryID!=0)
+{
+   
+    @Html.Hidden("currentCategoryID", Model.CurrentCategoryID.ToString()) 
+  
+}
+
+<div class="round-button">
+    <div class="round-button-circle">
+        <a class="pagingButton @(Model.PagingBtnsClass.ToString())"><</a>
+    </div>
+</div>
+
+@*pages btns*@
+@for(int i = 1; i <= Model.RecipesListNumberOfPages; i++)
+{
+    <div class="round-button">
+        <div class="round-button-circle">
+            @if (Model.PagingBtnsClass == null)
+            {
+                <a class="pagingButton ">@i</a>
+            }
+            else
+            {
+               <a class="pagingButton @(Model.PagingBtnsClass.ToString())">@i</a>     
+            } 
+            
+        </div>
+    </div>
+}
+
+@*next page btn*@
+<div class="round-button">
+    <div class="round-button-circle">
+        <a class="pagingButton @(Model.PagingBtnsClass.ToString())">></a>
+    </div>
+</div>
+
+@*last page btn*@
+<div class="round-button">
+    <div class="round-button-circle">
+        <a class="pagingButton @(Model.PagingBtnsClass.ToString())">>></a>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+﻿/* File Created: октомври 19, 2014 */
+.homeSliderContainer>h3,.homeSliderContainer>h3 {
+	line-height:2;
+	font-weight:bold;
+	text-shadow: 1px 1px white, -1px -1px #444;
+}

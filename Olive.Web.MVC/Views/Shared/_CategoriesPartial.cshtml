@@ -1,0 +1,88 @@
+﻿@model List<Olive.Data.Category>
+@{
+    ViewBag.Title = "_CategoriesPartial";
+}
+
+@*<h2>_CategoriesPartial</h2>*@
+
+@*@foreach (var category in Model)
+{
+    <a>@(category.Name)</a>
+}*@
+<section id="categoriesMenuInnerContainer" >
+@*@Html.Hidden("currentCategoryID","")*@
+    @{
+        var counter = 1;
+        string imgSource = "";
+      }
+   @foreach (var category in Model)
+    {
+        <ul class="mainCategoriesContainer">
+            @*<li class="mainCategories">@(category.Name)</li>*@
+            @if (counter==1)
+            {
+                imgSource = "<img class='categoriesMenuImage' src='../../Content/Images/CategoriesMenu/desertsCategory_icon.png' />";
+            }
+            @if (counter==2)
+            {
+                imgSource = "<img class='categoriesMenuImage' src='../../Content/Images/CategoriesMenu/breadCategory_icon.png' />";
+            }
+            @if (counter==3)
+            {
+                imgSource = "<img class='categoriesMenuImage' src='../../Content/Images/CategoriesMenu/soupeCategory_icon.png' />";
+            }
+            @if (counter==4)
+            {
+                imgSource = "<img class='categoriesMenuImage' src='../../Content/Images/CategoriesMenu/meatCategory_icon.png' />";
+            }
+            <li id="@category.CategoryID" class="mainCategories">
+               @* <a href="@Url.Action("RecipesByCategory", "Recipes", new { categoryID = category.CategoryID, categoryName = category.Name})">
+                    @(category.Name)
+                </a>*@
+                 @Html.Raw(HttpUtility.HtmlDecode(Ajax.ActionLink(imgSource, "RecipesByCategory", new { categoryID = category.CategoryID, categoryName = category.Name }, new AjaxOptions()
+                {
+                    OnSuccess = "successLoadRecipesByCategoryList",   
+                    UpdateTargetId = "allRecipesList"
+                    , HttpMethod = "get"
+                }).ToString()))
+                @{counter++;}
+               @* @Html.Hidden("categoryID", category.CategoryID)*@
+                @*<a href="#">@(childCategory.Name.ToLower())</a>*@
+            </li>
+            <li class="childrenCategoriesOuterContainer">
+                <ul class="childrenCategoriesContainer">
+                    @foreach (var childCategory in category.Categories1)
+                    {
+                        <li id="@childCategory.CategoryID" class="childCategories">
+                            @*<a href="@Url.Action("RecipesByCategory", "Recipes", new { categoryID = childCategory.CategoryID, categoryName = childCategory.Name})">
+                                @(childCategory.Name.ToLower())
+                            </a>*@
+                             @Ajax.ActionLink(childCategory.Name, "RecipesByCategory", new { categoryID = childCategory.CategoryID, categoryName = childCategory.Name }, new AjaxOptions()
+                                {
+                                    OnSuccess = "successLoadRecipesByCategoryList",   
+                                    UpdateTargetId = "allRecipesList"
+                                    , HttpMethod = "get"
+                                })
+                            @*@Html.Hidden("categoryID", category.CategoryID)*@
+                         </li>
+                    }
+                </ul>
+            </li>
+            
+        </ul>
+    }
+</section>
+@*<button class="cn-button" id="cn-button">Menu</button>
+<div class="cn-wrapper" id="cn-wrapper">
+	<ul>
+		<li><a href="#"><span>About</span></a></li>
+		<li><a href="#"><span>Tutorials</span></a></li>
+		<li><a href="#"><span>Articles</span></a></li>
+		<li><a href="#"><span>Snippets</span></a></li>
+		<li><a href="#"><span>Plugins</span></a></li>
+		<li><a href="#"><span>Contact</span></a></li>
+		<li><a href="#"><span>Follow</span></a></li>
+
+	</ul>
+</div>*@
+

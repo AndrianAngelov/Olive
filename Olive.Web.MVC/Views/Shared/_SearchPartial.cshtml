@@ -1,0 +1,45 @@
+﻿@model Olive.Web.MVC.ViewModels.SearchViewModel
+
+<div class="col-sm-7 col-md-7 col-md-offset-5">
+    @using (Html.BeginForm("Search", "Recipes", new { area = "" ,searchString=@Model.SearchString}, FormMethod.Post, new { @class = "navbar-form", id = "search-form", style = "height:5px;width:100%;" }))
+    {
+        <div class="input-group ">
+           @* @Html.TextBox("searchString", null, new {type="text",@class="form-control",placeholder="заглавие,категория,съставки",id="serachString"})  *@
+            @Html.TextBoxFor(x => x.SearchString, new { type = "text", @class = "form-control", placeholder = "заглавие,категория,съставки", id = "serachString" })
+            <div class="input-group-btn">
+				<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+			</div>
+        </div>
+    }
+</div>
+
+@*<div class="col-sm-7 col-md-7 col-md-offset-5">
+	<form class="navbar-form" action="@Url.Action("Search", "Recipes", new { area = "" })" role="search" method="get" id="search-form" name="search-form" style="height:5px;width:100%;">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="2 BHK Flat, Pune Real Estate, Pest Control..." id="searchString" name="searchString" value="">
+			<div class="input-group-btn">
+				<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+			</div>
+		</div>
+	</form>
+                
+    @using (Html.BeginForm("Search", "Recipes", new { area = "" }, FormMethod.Get, new { @class = "navbar-form", id = "search-form", style = "height:5px;width:100%;" }))
+    {
+        <div class="input-group">
+			<input type="text" class="form-control" placeholder="2 BHK Flat, Pune Real Estate, Pest Control..." id="searchString" name="searchString" value="">
+			<div class="input-group-btn">
+				<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+			</div>
+		</div>
+    }
+
+    @using (Html.BeginForm("Search", "Recipes", new { area = "" }, FormMethod.Post, new { @class = "navbar-form", id = "search-form", style = "height:5px;width:100%;" }))
+    {
+        <div class="input-group ">
+            @Html.TextBox("searchString", null, new {type="text",@class="form-control",placeholder="заглавие,категория,съставки",id="serachString"})  
+            <div class="input-group-btn">
+				<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+			</div>
+        </div>
+    }
+</div>*@

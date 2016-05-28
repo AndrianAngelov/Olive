@@ -1,0 +1,28 @@
+﻿@model List<Olive.Data.Category>
+@{
+    ViewBag.Title = "_ALLCategoriesPartial";
+}
+
+@foreach (var category in Model)
+    {
+        <ul class="categoriesItemContainer">
+            <li class="mainCategories">
+                <a href="@Url.Action("RecipesByCategory", "Recipes", new { categoryID = category.CategoryID, categoryName=category.Name })">
+                    @(category.Name)
+                </a>
+            </li>
+            <li>
+                <ul>
+                    @foreach (var childCategory in category.Categories1)
+                    {
+                        <li class="childCategories">
+                            <a href="@Url.Action("RecipesByCategory", "Recipes", new { categoryID = childCategory.CategoryID, categoryName = childCategory.Name })">
+                                @(childCategory.Name.ToLower())
+                            </a>
+                         </li>
+                    }
+                </ul>
+            </li>
+            
+        </ul>
+    }

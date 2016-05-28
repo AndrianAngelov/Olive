@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Olive.Data.Recipe>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administration/Views/Shared/_AdministrationLayout.cshtml";
+}
+
+<h2>Всички рецепти</h2>
+
+<section id="recipesTableContainer">
+<table id="recipesTable" class="table table-hover">
+    <tbody id="recipesTableBody">
+        <tr>
+            <th>
+                Заглавие
+            </th>
+            <th>
+                Снимка
+            </th>
+            <th>
+                Категории
+            </th>
+            <th>
+                Източник
+            </th>
+            <th>
+                Публикувана
+            </th>
+            <th>
+                Посещения
+            </th>
+            <th>
+                Харесвания
+            </th>
+            <th>
+                Препоръчана
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var recipe in Model)
+        {
+        <tr>
+            <td class="col-md-5">
+                @Html.DisplayFor(modelItem => recipe.Title)
+            </td>
+            <td>
+                <img class="recipeItemImage" src="@(recipe.ImageURL)" alt="@(recipe.ImageURL)"/>
+                <p>@Path.GetFileName(recipe.ImageURL)</p>
+            </td>
+            <td>
+                @for (int i = 0; i < recipe.Categories.Count; i++)
+                    {
+                        <p>
+                            @if(i<1)
+                            {
+                                @recipe.Categories.ToList()[i].Name.ToLower()
+                            }
+                            else
+                            {
+                                @recipe.Categories.ToList()[i].Name.ToLower()
+                            }        
+                        </p>
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => recipe.Source.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => recipe.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => recipe.NumberOfHits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => recipe.NumberOfLikes)
+            </td>
+            <td>
+                @Helpers.RecomendationValueToBg(recipe.Recommended)
+            </td>
+            <td>
+                <a class="editBtn" href='@(Url.Action("Edit", new { id = recipe.RecipeID }))'>Промени</a>
+                <a class="deleteBtn" href='@(Url.Action("Delete", new { id = recipe.RecipeID }))'>Изтрий</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+</section>
+
+@section Scripts{
+<script type="text/javascript">
+    
+</script>
+}
+
